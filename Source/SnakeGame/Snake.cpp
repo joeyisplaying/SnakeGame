@@ -4,6 +4,8 @@
 #include "Snake.h"
 #include "Kismet/GameplayStatics.h"
 #include "Camera/CameraComponent.h"
+#include "SnakeGame/BodySegment.h"
+#include "Components/ArrowComponent.h"
 
 #define OUT
 
@@ -19,6 +21,9 @@ void ASnake::InitSnakeHead()
 	SnakeHead->SetRelativeLocation(SnakeHeadStartingLoc);
 	SnakeHead->SetRelativeRotation(SnakeHeadStartingRot);
 	SnakeHead->SetWorldScale3D(SnakeHeadWorldScale);
+
+	Orientation = CreateDefaultSubobject<UArrowComponent>(TEXT("Orientation"));
+	Orientation->SetupAttachment(SnakeHead);
 }
 
 void ASnake::InitCamera()
@@ -32,8 +37,6 @@ void ASnake::SetBoardBounds()
 {
 	Board->GetLocalBounds(OUT MinBoardBounds, OUT MaxBoardBounds);
 	
-	UE_LOG(LogTemp, Warning, TEXT("MIN = %s"), *(MinBoardBounds.ToString()));
-	UE_LOG(LogTemp, Warning, TEXT("MAX = %s"), *(MaxBoardBounds.ToString()));
 }
 
 void ASnake::SetSnakeHeadBounds()
@@ -59,6 +62,14 @@ void ASnake::MoveUp(float Value)
 	{
 		MovementDirection.Y = FMath::Clamp(Value, -1.0f, 1.0f);	
 	}
+	if(Value == -1.0f)
+	{
+		SnakeHead->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
+	}
+	if(Value == 1.0f)
+	{
+		SnakeHead->SetRelativeRotation(FRotator(0.0f, 90.0f, 0.0f));
+	}
 	
 }
 
@@ -77,7 +88,37 @@ void ASnake::MoveAcross(float Value)
 	{
 		MovementDirection.X = FMath::Clamp(Value, -1.0f, 1.0f);	
 	}
+	if(Value == -1.0f)
+	{
+		SnakeHead->SetRelativeRotation(FRotator(0.0f, 180.0f, 0.0f));
+	}
+	if(Value == 1.0f)
+	{
+		SnakeHead->SetRelativeRotation(FRotator(0.0f, 0.0f, 0.0f));
+	}
 	
+}
+
+void ASnake::SpawnSegment() 
+{
+	if(!SegmentClass)
+	{
+		UE_LOG(LogTemp, Error, TEXT("SEGMENT CLASS NOT ASSIGNED"));
+		return;
+	}
+	if(SegmentClass)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Space Bar Pressed"));
+
+		// TODO - Find and set location that is constantly behind the Snakehead
+		
+		FVector SpawnLocation = FVector(SnakeHead->GetComponentLocation().X + 100.0f, SnakeHead->GetComponentLocation().Y, SnakeHead->GetComponentLocation().Z);
+		const FRotator SpawnRotation = SnakeHead->GetComponentRotation();
+
+		ABodySegment* TempSegment = GetWorld()->SpawnActor<ABodySegment>(SegmentClass, SpawnLocation, SpawnRotation);
+		TempSegment->SetOwner(this);
+		UE_LOG(LogTemp, Warning, TEXT("SnakeHead Loc: %s"), *(SnakeHead->GetRelativeLocation().ToString()));
+	}	
 }
 
 // Sets default values
@@ -107,10 +148,7 @@ void ASnake::BeginPlay()
 	Super::BeginPlay();
 	SetBoardBounds();
 	SetSnakeHeadBounds();
-	UE_LOG(LogTemp, Warning, TEXT("MIN Snake Bounds: %s"), *(MinSnakeHeadBounds.ToString()));
-	UE_LOG(LogTemp, Warning, TEXT("MAX Snake Bounds: %s"), *(MaxSnakeHeadBounds.ToString()));
-	UE_LOG(LogTemp, Warning, TEXT("MIN Board Bounds: %s"), *(MinBoardBounds.ToString()));
-	UE_LOG(LogTemp, Warning, TEXT("MAX Board Bounds: %s"), *(MaxBoardBounds.ToString()));
+
 }
 
 // Called every frame
@@ -123,7 +161,6 @@ void ASnake::Tick(float DeltaTime)
 		const FVector NewLocation = SnakeHead->GetRelativeLocation() + (MovementDirection * DeltaTime * SnakeHeadSpeed);
 		SnakeHead->SetRelativeLocation(NewLocation);
 	}
-	UE_LOG(LogTemp, Warning, TEXT("MIN Snake bounds: %s"), *(SnakeHead->GetRelativeLocation().ToString()));
 }
 
 // Called to bind functionality to input
@@ -133,5 +170,8 @@ void ASnake::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	
 	PlayerInputComponent->BindAxis("MoveUp",this, &ASnake::MoveUp);
 	PlayerInputComponent->BindAxis("MoveAcross",this, &ASnake::MoveAcross);
+
+	PlayerInputComponent->BindAction("Spawn", IE_Pressed, this, &ASnake::SpawnSegment);
+	
 }
 

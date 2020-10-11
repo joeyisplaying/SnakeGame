@@ -24,15 +24,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41970d5c-189c-4881-9a4c-0fd9915ae1a4" name="Default Changelist" comment="Initialised Board, SnakeHead, and Camera; Implemented SnakeHead movement.">
-      <change afterPath="$PROJECT_DIR$/Content/Meshes/SM_SnakeBoard.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/SnakeFood.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/SnakeFood.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/BodySegment.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/BodySegment.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultInput.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultInput.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Snake/BP_Snake.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Snake/BP_Snake.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/MainMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/MainMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/MainMap_BuiltData.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/MainMap_BuiltData.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Snake.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.h" afterDir="false" />
     </list>
@@ -53,8 +48,12 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Source/SnakeGame/SnakeGame.cpp" />
-        <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" />
+        <option value="$PROJECT_DIR$/Source/SnakeGame/SnakeSegment.cpp" />
+        <option value="$PROJECT_DIR$/Source/SnakeGame/SnakeSegment.h" />
+        <option value="$PROJECT_DIR$/Source/SnakeGame/BodySegment.h" />
+        <option value="$PROJECT_DIR$/Source/SnakeGame/BodySegment.cpp" />
         <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.h" />
+        <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" />
       </list>
     </option>
   </component>
@@ -399,7 +398,8 @@
       <workItem from="1602416372017" duration="33000" />
       <workItem from="1602416545263" duration="5382000" />
       <workItem from="1602422132393" duration="275000" />
-      <workItem from="1602426019291" duration="7162000" />
+      <workItem from="1602426019291" duration="15442000" />
+      <workItem from="1602442525577" duration="1052000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1602416613208</created>
@@ -415,7 +415,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602422394195</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Implemented boundaries to the board preventing SnakeHead from going over the edge">
+      <created>1602433692785</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1602433692785</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -439,28 +446,45 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Initial Commit" />
     <MESSAGE value="Initialised Board, SnakeHead, and Camera; Implemented SnakeHead movement." />
-    <option name="LAST_COMMIT_MESSAGE" value="Initialised Board, SnakeHead, and Camera; Implemented SnakeHead movement." />
+    <MESSAGE value="Implemented boundaries to the board preventing SnakeHead from going over the edge" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented boundaries to the board preventing SnakeHead from going over the edge" />
   </component>
   <component name="WindowStateProjectService">
+    <state width="2517" height="401" key="GridCell.Tab.0.bottom" timestamp="1602442591491">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="401" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1602442591491" />
+    <state width="2517" height="401" key="GridCell.Tab.0.center" timestamp="1602442591491">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="401" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1602442591491" />
+    <state width="2517" height="401" key="GridCell.Tab.0.left" timestamp="1602442591490">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="401" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1602442591490" />
+    <state width="2517" height="401" key="GridCell.Tab.0.right" timestamp="1602442591491">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="401" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1602442591491" />
     <state x="860" y="443" key="IDE.errors.dialog" timestamp="1602416706022">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="860" y="443" key="IDE.errors.dialog/0.0.2560.1400@0.0.2560.1400" timestamp="1602416706022" />
-    <state x="1141" y="405" key="RiderGenerateDialog" timestamp="1602421560428">
+    <state x="1141" y="405" key="RiderGenerateDialog" timestamp="1602435514418">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1141" y="405" key="RiderGenerateDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1602421560428" />
-    <state x="872" y="433" key="Vcs.Push.Dialog.v2" timestamp="1602422397005">
+    <state x="1141" y="405" key="RiderGenerateDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1602435514417" />
+    <state x="872" y="433" key="Vcs.Push.Dialog.v2" timestamp="1602433696023">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="872" y="433" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1602422397005" />
+    <state x="872" y="433" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1602433696023" />
     <state x="901" y="357" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1602420980761">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="901" y="357" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.2560.1400@0.0.2560.1400" timestamp="1602420980761" />
-    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup" timestamp="1602428754190">
+    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup" timestamp="1602436599890">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1602428754190" />
+    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1602436599890" />
   </component>
 </project>

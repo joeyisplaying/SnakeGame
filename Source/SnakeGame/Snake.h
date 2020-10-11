@@ -8,6 +8,9 @@
 
 class UStaticMeshComponent;
 class UCameraComponent;
+class USceneComponent;
+class ABodySegment;
+class UArrowComponent;
 
 UCLASS()
 class SNAKEGAME_API ASnake : public APawn
@@ -36,6 +39,8 @@ public:
 		UStaticMeshComponent* SnakeHead{nullptr};
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
 		UCameraComponent* Camera{nullptr};
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Rotation")
+		UArrowComponent* Orientation{nullptr};
 
 	/* --- Initialisation --- */
 	void InitBoard();
@@ -73,4 +78,15 @@ public:
 	FVector MaxSnakeHeadBounds;
 
 	// TODO :: May need to change board bounds - Currently the board bounds are not in keeping with its scale. I.e. it's max bounds are still 100, not 2000
+
+public:
+	/* --- Snake Segments --- */
+
+	/* --- Segment Components --- */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Segments")
+		TSubclassOf<ABodySegment> SegmentClass;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Segments")
+		USceneComponent* SegmentSpawnPoint{nullptr};
+
+	virtual void SpawnSegment();
 };

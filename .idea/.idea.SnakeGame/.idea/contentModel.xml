@@ -43433,6 +43433,8 @@
       <e p="SnakeGame.uproject" t="Include" />
       <e p="Source" t="Include">
         <e p="SnakeGame" t="Include">
+          <e p="BodySegment.cpp" t="Include" />
+          <e p="BodySegment.h" t="Include" />
           <e p="GameModes" t="Include">
             <e p="SnakeGameModeBase.cpp" t="Include" />
             <e p="SnakeGameModeBase.h" t="Include" />
