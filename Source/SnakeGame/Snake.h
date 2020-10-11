@@ -69,6 +69,7 @@ public:
 	/* --- Snake Head Movement Functions --- */
 	void MoveUp(float Value);
 	void MoveAcross(float Value);
+	FVector GetCurrentSnakeHeadLoc() const;
 
 	/* --- Snake Head Variables --- */
 	FVector MovementDirection{};
@@ -87,6 +88,8 @@ public:
 		TSubclassOf<ABodySegment> SegmentClass;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Segments")
 		USceneComponent* SegmentSpawnPoint{nullptr};
+	ABodySegment* TempSegment;
 
-	virtual void SpawnSegment();
+	virtual void SpawnFirstSegment();
+	void UpdateFirstBodySegmentLoc();
 };

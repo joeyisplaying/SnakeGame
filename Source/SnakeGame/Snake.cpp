@@ -99,26 +99,86 @@ void ASnake::MoveAcross(float Value)
 	
 }
 
-void ASnake::SpawnSegment() 
+FVector ASnake::GetCurrentSnakeHeadLoc() const
+{
+	return SnakeHead->GetComponentLocation();
+}
+
+void ASnake::SpawnFirstSegment() 
 {
 	if(!SegmentClass)
 	{
 		UE_LOG(LogTemp, Error, TEXT("SEGMENT CLASS NOT ASSIGNED"));
 		return;
 	}
-	if(SegmentClass)
+	// !TempSegment means that it can only spawn once
+	if(SegmentClass && !TempSegment)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Space Bar Pressed"));
 
-		// TODO - Find and set location that is constantly behind the Snakehead
+		// TODO - Fix bug where when SnakeHead vector Y == -1, the SpawnLocation appears to be random, all others work fine
 		
-		FVector SpawnLocation = FVector(SnakeHead->GetComponentLocation().X + 100.0f, SnakeHead->GetComponentLocation().Y, SnakeHead->GetComponentLocation().Z);
+		FVector SpawnLocation{};
+		if(SnakeHead->GetComponentRotation().Vector().X == -1)
+		{
+			SpawnLocation = GetCurrentSnakeHeadLoc();
+			SpawnLocation.X += 100.0f;
+		}
+		else if(SnakeHead->GetComponentRotation().Vector().X == 1)
+		{
+			SpawnLocation = GetCurrentSnakeHeadLoc();
+			SpawnLocation.X -= 100.0f;
+		}
+		else if(SnakeHead->GetComponentRotation().Vector().Y == -1)
+		{
+			SpawnLocation = GetCurrentSnakeHeadLoc();
+			SpawnLocation.Y += 100.0f;
+		}
+		else if(SnakeHead->GetComponentRotation().Vector().Y == 1)
+		{
+			SpawnLocation = GetCurrentSnakeHeadLoc();
+			SpawnLocation.Y -= 100.0f;
+		}
 		const FRotator SpawnRotation = SnakeHead->GetComponentRotation();
 
-		ABodySegment* TempSegment = GetWorld()->SpawnActor<ABodySegment>(SegmentClass, SpawnLocation, SpawnRotation);
+		TempSegment = GetWorld()->SpawnActor<ABodySegment>(SegmentClass, SpawnLocation, SpawnRotation);
 		TempSegment->SetOwner(this);
-		UE_LOG(LogTemp, Warning, TEXT("SnakeHead Loc: %s"), *(SnakeHead->GetRelativeLocation().ToString()));
 	}	
+}
+
+void ASnake::UpdateFirstBodySegmentLoc()
+{
+	if(!TempSegment)
+	{
+		UE_LOG(LogTemp, Error, TEXT("SEGMENT CLASS NOT ASSIGNED"));
+		return;
+	}
+	if(TempSegment)
+	{
+		TempSegment->SetActorRotation(SnakeHead->GetComponentRotation());
+		const FVector LeftSnakeHeadLoc{GetCurrentSnakeHeadLoc().X + 100.0f, GetCurrentSnakeHeadLoc().Y, GetCurrentSnakeHeadLoc().Z};
+		const FVector RightSnakeHeadLoc{GetCurrentSnakeHeadLoc().X - 100.0f, GetCurrentSnakeHeadLoc().Y, GetCurrentSnakeHeadLoc().Z};
+		// TODO - Same bug as spawn loc - Fix bug where when SnakeHead vector Y == -1, the SpawnLocation appears to be random, all others work fine
+		const FVector UpSnakeHeadLoc{GetCurrentSnakeHeadLoc().X, GetCurrentSnakeHeadLoc().Y + 100.0f, GetCurrentSnakeHeadLoc().Z};
+		const FVector DownSnakeHeadLoc{GetCurrentSnakeHeadLoc().X, GetCurrentSnakeHeadLoc().Y - 100.0f, GetCurrentSnakeHeadLoc().Z};
+	
+		if(SnakeHead->GetComponentRotation().Vector().X == -1)
+		{
+			TempSegment->SetActorLocation(LeftSnakeHeadLoc);
+		}
+		else if(SnakeHead->GetComponentRotation().Vector().X == 1)
+		{
+			TempSegment->SetActorLocation(RightSnakeHeadLoc);
+		}
+		else if(SnakeHead->GetComponentRotation().Vector().Y == -1)
+		{
+			TempSegment->SetActorLocation(UpSnakeHeadLoc);
+		}
+		else if(SnakeHead->GetComponentRotation().Vector().Y == 1)
+		{
+			TempSegment->SetActorLocation(DownSnakeHeadLoc);
+		}
+	}
 }
 
 // Sets default values
@@ -155,12 +215,15 @@ void ASnake::BeginPlay()
 void ASnake::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	
+
+	UpdateFirstBodySegmentLoc();
 	if(!MovementDirection.IsZero())
 	{
 		const FVector NewLocation = SnakeHead->GetRelativeLocation() + (MovementDirection * DeltaTime * SnakeHeadSpeed);
 		SnakeHead->SetRelativeLocation(NewLocation);
 	}
+	UE_LOG(LogTemp, Warning, TEXT("SnakeHead Loc: %s"), *(SnakeHead->GetRelativeLocation().ToString()));
+	UE_LOG(LogTemp, Warning, TEXT("SnakeHead RLoc: %s"), *(SnakeHead->GetComponentRotation().Vector().ToString()));
 }
 
 // Called to bind functionality to input
@@ -171,7 +234,7 @@ void ASnake::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis("MoveUp",this, &ASnake::MoveUp);
 	PlayerInputComponent->BindAxis("MoveAcross",this, &ASnake::MoveAcross);
 
-	PlayerInputComponent->BindAction("Spawn", IE_Pressed, this, &ASnake::SpawnSegment);
+	PlayerInputComponent->BindAction("Spawn", IE_Pressed, this, &ASnake::SpawnFirstSegment);
 	
 }
 

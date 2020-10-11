@@ -3,8 +3,6 @@
 
 #include "BodySegment.h"
 
-#include "NavigationSystemTypes.h"
-
 // Sets default values
 ABodySegment::ABodySegment()
 {
