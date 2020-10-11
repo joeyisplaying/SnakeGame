@@ -43418,6 +43418,7 @@
         <e p="DefaultEditor.ini" t="Include" />
         <e p="DefaultEngine.ini" t="Include" />
         <e p="DefaultGame.ini" t="Include" />
+        <e p="DefaultInput.ini" t="Include" />
       </e>
       <e p="Engine" t="Include" />
       <e p="Games" t="Include" />
@@ -43432,6 +43433,12 @@
       <e p="SnakeGame.uproject" t="Include" />
       <e p="Source" t="Include">
         <e p="SnakeGame" t="Include">
+          <e p="GameModes" t="Include">
+            <e p="SnakeGameModeBase.cpp" t="Include" />
+            <e p="SnakeGameModeBase.h" t="Include" />
+          </e>
+          <e p="Snake.cpp" t="Include" />
+          <e p="Snake.h" t="Include" />
           <e p="SnakeGame.Build.cs" t="Include" />
           <e p="SnakeGame.cpp" t="Include" />
           <e p="SnakeGame.h" t="Include" />
