@@ -23,26 +23,18 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41970d5c-189c-4881-9a4c-0fd9915ae1a4" name="Default Changelist" comment="Initial Commit">
-      <change afterPath="$PROJECT_DIR$/Config/DefaultInput.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Blueprints/BP_SnakeGameModeBase.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Snake/BP_Snake.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Meshes/SM_Board.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Meshes/SM_SnakeHead.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Textures/M_Base.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Textures/MaterialInstances/MI_Board.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Textures/MaterialInstances/MI_SnakeHead.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/GameModes/SnakeGameModeBase.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/GameModes/SnakeGameModeBase.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.h" afterDir="false" />
+    <list default="true" id="41970d5c-189c-4881-9a4c-0fd9915ae1a4" name="Default Changelist" comment="Initialised Board, SnakeHead, and Camera; Implemented SnakeHead movement.">
+      <change afterPath="$PROJECT_DIR$/Content/Meshes/SM_SnakeBoard.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/SnakeFood.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/SnakeFood.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultInput.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultInput.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Snake/BP_Snake.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Snake/BP_Snake.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/MainMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/MainMap.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/MainMap_BuiltData.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/MainMap_BuiltData.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SnakeGame.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/SnakeGame.uproject" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/SnakeGame/SnakeGame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/SnakeGame.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Snake.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,8 +53,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Source/SnakeGame/SnakeGame.cpp" />
-        <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.h" />
         <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" />
+        <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.h" />
       </list>
     </option>
   </component>
@@ -406,7 +398,8 @@
       <updated>1602416343558</updated>
       <workItem from="1602416372017" duration="33000" />
       <workItem from="1602416545263" duration="5382000" />
-      <workItem from="1602422132393" duration="189000" />
+      <workItem from="1602422132393" duration="275000" />
+      <workItem from="1602426019291" duration="7162000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1602416613208</created>
@@ -415,7 +408,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602416613208</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Initialised Board, SnakeHead, and Camera; Implemented SnakeHead movement.">
+      <created>1602422394195</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1602422394195</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -438,7 +438,8 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Initial Commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial Commit" />
+    <MESSAGE value="Initialised Board, SnakeHead, and Camera; Implemented SnakeHead movement." />
+    <option name="LAST_COMMIT_MESSAGE" value="Initialised Board, SnakeHead, and Camera; Implemented SnakeHead movement." />
   </component>
   <component name="WindowStateProjectService">
     <state x="860" y="443" key="IDE.errors.dialog" timestamp="1602416706022">
@@ -449,13 +450,17 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1141" y="405" key="RiderGenerateDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1602421560428" />
-    <state x="872" y="433" key="Vcs.Push.Dialog.v2" timestamp="1602416724962">
+    <state x="872" y="433" key="Vcs.Push.Dialog.v2" timestamp="1602422397005">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="872" y="433" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1602416724962" />
+    <state x="872" y="433" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1602422397005" />
     <state x="901" y="357" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1602420980761">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="901" y="357" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.2560.1400@0.0.2560.1400" timestamp="1602420980761" />
+    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup" timestamp="1602428754190">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1602428754190" />
   </component>
 </project>

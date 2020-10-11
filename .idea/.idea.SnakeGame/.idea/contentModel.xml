@@ -43439,6 +43439,8 @@
           </e>
           <e p="Snake.cpp" t="Include" />
           <e p="Snake.h" t="Include" />
+          <e p="SnakeFood.cpp" t="Include" />
+          <e p="SnakeFood.h" t="Include" />
           <e p="SnakeGame.Build.cs" t="Include" />
           <e p="SnakeGame.cpp" t="Include" />
           <e p="SnakeGame.h" t="Include" />

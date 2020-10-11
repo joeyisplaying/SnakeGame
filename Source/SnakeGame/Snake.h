@@ -38,30 +38,39 @@ public:
 		UCameraComponent* Camera{nullptr};
 
 	/* --- Initialisation --- */
-	void InitBoard() const;
-	void InitSnakeHead() const;
-	void InitCamera() const;
+	void InitBoard();
+	void InitSnakeHead();
+	void InitCamera();
+	void SetBoardBounds();
+	void SetSnakeHeadBounds();
 
 	/* --- Board Variables --- */
 	const FVector BoardWorldLoc{0.0f, 0.0f, 0.0f};
 	const FRotator BoardWorldRot{0.0f, 0.0f, 0.0f,};
 	const FVector BoardWorldScale{20.0f, 20.0f, 1.0f};
+	FVector MinBoardBounds;
+	FVector MaxBoardBounds;
 
 	/* --- Snake Head Variables --- */
-	const FVector SnakeHeadStartingLoc{-20.0f, 20.0f, 50.0f};
+	const FVector SnakeHeadStartingLoc{20.0f, 20.0f, 50.0f};
 	const FRotator SnakeHeadStartingRot{0.0f, 0.0f, 0.0f};
 	const FVector SnakeHeadWorldScale{1.0f, 1.0f, 1.0f};
 
 	/* --- Camera Variables --- */
-	const FVector CameraStartingLoc{-50.0f, 50.0f, 2000.0f};
-	const FRotator CameraStartingRot{-90.0f, 90.0f, 0.0f};
+	const FVector CameraStartingLoc{50.0f, 50.0f, 2000.0f};
+	const FRotator CameraStartingRot{-90.0f, -90.0f, 0.0f};
 	const FVector CameraWorldScale{1.0f, 1.0f, 1.0f};
 
 	/* --- Snake Head Movement Functions --- */
 	void MoveUp(float Value);
 	void MoveAcross(float Value);
 
-	/* --- Snake Head Movement Variables --- */
+	/* --- Snake Head Variables --- */
 	FVector MovementDirection{};
-	float SnakeHeadSpeed{100.0f};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
+		float SnakeHeadSpeed{100.0f};
+	FVector MinSnakeHeadBounds;
+	FVector MaxSnakeHeadBounds;
+
+	// TODO :: May need to change board bounds - Currently the board bounds are not in keeping with its scale. I.e. it's max bounds are still 100, not 2000
 };
