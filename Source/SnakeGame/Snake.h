@@ -11,6 +11,7 @@ class UCameraComponent;
 class USceneComponent;
 class ABodySegment;
 class UArrowComponent;
+class ABoard;
 
 UCLASS()
 class SNAKEGAME_API ASnake : public APawn
@@ -33,36 +34,27 @@ protected:
 
 public:
 	/* --- Components --- */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Board")
-		UStaticMeshComponent* Board{nullptr};
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Snake")
 		UStaticMeshComponent* SnakeHead{nullptr};
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
 		UCameraComponent* Camera{nullptr};
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Rotation")
-		UArrowComponent* Orientation{nullptr};
+		UArrowComponent* ArrowComponent{nullptr};
 
 	/* --- Initialisation --- */
-	void InitBoard();
 	void InitSnakeHead();
 	void InitCamera();
-	void SetBoardBounds();
 	void SetSnakeHeadBounds();
 
-	/* --- Board Variables --- */
-	const FVector BoardWorldLoc{0.0f, 0.0f, 0.0f};
-	const FRotator BoardWorldRot{0.0f, 0.0f, 0.0f,};
-	const FVector BoardWorldScale{20.0f, 20.0f, 1.0f};
-	FVector MinBoardBounds;
-	FVector MaxBoardBounds;
-
 	/* --- Snake Head Variables --- */
-	const FVector SnakeHeadStartingLoc{20.0f, 20.0f, 50.0f};
+	const FVector SnakeHeadStartingLoc{1000.0f, 1000.0f, 50.0f};
 	const FRotator SnakeHeadStartingRot{0.0f, 0.0f, 0.0f};
 	const FVector SnakeHeadWorldScale{1.0f, 1.0f, 1.0f};
 
 	/* --- Camera Variables --- */
-	const FVector CameraStartingLoc{50.0f, 50.0f, 2000.0f};
+	const FVector CameraStartingLoc{1000.0f, 1000.0f, 2000.0f};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera Location")
+		float CameraStartingZLoc{2000.0f};
 	const FRotator CameraStartingRot{-90.0f, -90.0f, 0.0f};
 	const FVector CameraWorldScale{1.0f, 1.0f, 1.0f};
 
@@ -88,8 +80,16 @@ public:
 		TSubclassOf<ABodySegment> SegmentClass;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Segments")
 		USceneComponent* SegmentSpawnPoint{nullptr};
-	ABodySegment* TempSegment;
+	ABodySegment* FirstSegment{nullptr};
+	ABodySegment* NextSegment{nullptr};
 
-	virtual void SpawnFirstSegment();
+	void SpawnFirstSegment();
+	FVector GetNextSegmentLoc();
+	void SetNextSegmentLoc();
 	void UpdateFirstBodySegmentLoc();
+	TArray<ABodySegment*> SegmentArray;
+	void UpdateArraySegmentLoc();
+	UPROPERTY(EditAnywhere, Category = "Board Ref")
+		ABoard* BoardRef{nullptr};
+	FVector ForwardVec{};
 };
