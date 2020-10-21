@@ -12,6 +12,7 @@ class USceneComponent;
 class ABodySegment;
 class UArrowComponent;
 class ABoard;
+class UPhysicsConstraintComponent;
 
 /* --- A LOT OF THIS CODE NEEDS REFACTORING --- */
 
@@ -94,4 +95,13 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Board Ref")
 		ABoard* BoardRef{nullptr};
 	FVector ForwardVec{};
+
+	/* --- Storing Locations on Tick --- */
+	FVector SnakeHeadTickLoc{};
+	FVector FirstSegmentTickLoc{};
+	FVector NextSegmentTickLoc{};
+	TArray <FVector> NextSegmentTickArray;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Constraint")
+		UPhysicsConstraintComponent* PhysicsConstraint;
 };

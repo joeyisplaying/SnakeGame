@@ -2,6 +2,7 @@
 
 
 #include "BodySegment.h"
+#include "PhysicsEngine/PhysicsConstraintComponent.h"
 
 // Sets default values
 ABodySegment::ABodySegment()
@@ -11,6 +12,8 @@ ABodySegment::ABodySegment()
 
 	SegmentMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Segment Mesh"));
 	RootComponent = SegmentMesh;
+
+	SegmentPhysicsConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(TEXT("Physics Constraint"));
 }
 
 // Called when the game starts or when spawned

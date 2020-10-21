@@ -25,7 +25,9 @@
   <component name="ChangeListManager">
     <list default="true" id="41970d5c-189c-4881-9a4c-0fd9915ae1a4" name="Default Changelist" comment="TODO - Need to update the locations of the segments to follow like a train/snake.">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Board/Board.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Board/Board.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_Snake.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_Snake.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/SnakeGame/BodySegment.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/BodySegment.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/SnakeGame/BodySegment.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/BodySegment.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Snake.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.h" afterDir="false" />
     </list>
@@ -48,16 +50,16 @@
         <option value="$PROJECT_DIR$/Source/SnakeGame/SnakeGame.cpp" />
         <option value="$PROJECT_DIR$/Source/SnakeGame/SnakeSegment.cpp" />
         <option value="$PROJECT_DIR$/Source/SnakeGame/SnakeSegment.h" />
-        <option value="$PROJECT_DIR$/Source/SnakeGame/BodySegment.h" />
         <option value="$PROJECT_DIR$/Source/SnakeGame/Grid/GridCell.h" />
         <option value="$PROJECT_DIR$/Source/SnakeGame/Grid/GridCell.cpp" />
         <option value="$PROJECT_DIR$/Source/SnakeGame/Grid/Grid.h" />
         <option value="$PROJECT_DIR$/Source/SnakeGame/Grid/Grid.cpp" />
         <option value="$PROJECT_DIR$/Source/SnakeGame/Board/Board.h" />
-        <option value="$PROJECT_DIR$/Source/SnakeGame/BodySegment.cpp" />
-        <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" />
-        <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.h" />
         <option value="$PROJECT_DIR$/Source/SnakeGame/Board/Board.cpp" />
+        <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.h" />
+        <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" />
+        <option value="$PROJECT_DIR$/Source/SnakeGame/BodySegment.h" />
+        <option value="$PROJECT_DIR$/Source/SnakeGame/BodySegment.cpp" />
       </list>
     </option>
   </component>
@@ -423,7 +425,9 @@
       <workItem from="1603109669026" duration="6176000" />
       <workItem from="1603131690910" duration="176000" />
       <workItem from="1603288974115" duration="7284000" />
-      <workItem from="1603307347181" duration="6222000" />
+      <workItem from="1603307347181" duration="6843000" />
+      <workItem from="1603318476045" duration="2420000" />
+      <workItem from="1603320978841" duration="261000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1602416613208</created>
@@ -481,7 +485,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603315020934</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="TODO - Need to update the locations of the segments to follow like a train/snake.">
+      <created>1603315663228</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1603315663228</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -514,22 +525,22 @@
     <option name="LAST_COMMIT_MESSAGE" value="TODO - Need to update the locations of the segments to follow like a train/snake." />
   </component>
   <component name="WindowStateProjectService">
-    <state width="2517" height="401" key="GridCell.Tab.0.bottom" timestamp="1603109483527">
+    <state width="2517" height="401" key="GridCell.Tab.0.bottom" timestamp="1603321060621">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="401" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1603109483527" />
-    <state width="2517" height="401" key="GridCell.Tab.0.center" timestamp="1603109483527">
+    <state width="2517" height="401" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1603321060621" />
+    <state width="2517" height="401" key="GridCell.Tab.0.center" timestamp="1603321060620">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="401" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1603109483527" />
-    <state width="2517" height="401" key="GridCell.Tab.0.left" timestamp="1603109483527">
+    <state width="2517" height="401" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1603321060620" />
+    <state width="2517" height="401" key="GridCell.Tab.0.left" timestamp="1603321060620">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="401" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1603109483527" />
-    <state width="2517" height="401" key="GridCell.Tab.0.right" timestamp="1603109483527">
+    <state width="2517" height="401" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1603321060620" />
+    <state width="2517" height="401" key="GridCell.Tab.0.right" timestamp="1603321060620">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="401" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1603109483527" />
+    <state width="2517" height="401" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1603321060620" />
     <state width="2517" height="519" key="GridCell.Tab.1.bottom" timestamp="1602457822775">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -590,10 +601,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="781" y="345" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1603059608214" />
-    <state x="872" y="433" key="Vcs.Push.Dialog.v2" timestamp="1603315022407">
+    <state x="872" y="433" key="Vcs.Push.Dialog.v2" timestamp="1603315668439">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="872" y="433" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1603315022407" />
+    <state x="872" y="433" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1603315668439" />
     <state x="901" y="357" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1602420980761">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
