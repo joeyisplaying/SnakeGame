@@ -6,7 +6,6 @@
 #include "Camera/CameraComponent.h"
 #include "SnakeGame/BodySegment.h"
 #include "Components/ArrowComponent.h"
-#include "Framework/MultiBox/MultiBoxExtender.h"
 #include "SnakeGame/Board/Board.h"
 
 #define OUT
@@ -98,8 +97,8 @@ void ASnake::SpawnFirstSegment()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Space Bar Pressed - SPAWNING FIRST SEGMENT"));
 
-		const FVector SpawnLocation = SnakeHead->GetComponentLocation() + ((SnakeHead->GetForwardVector() * -1) * 100.0f);
-		const FRotator SpawnRotation = SnakeHead->GetComponentRotation();
+		FVector SpawnLocation = SnakeHead->GetComponentLocation() + ((SnakeHead->GetForwardVector() * -1) * 100.0f);
+		FRotator SpawnRotation = SnakeHead->GetComponentRotation();
 
 		FirstSegment = GetWorld()->SpawnActor<ABodySegment>(SegmentClass, SpawnLocation, SpawnRotation);
 		FirstSegment->SetOwner(this);
@@ -132,24 +131,6 @@ void ASnake::SpawnFirstSegment()
 	}
 }
 
-void ASnake::UpdateNextSegmentLoc()
-{
-	// TODO - Currently getting a crash when trying to update the locations of the next segments after the first!
-	if(!NextSegment)
-	{
-		return;
-	}
-	if(NextSegment && SegmentArray.Num() > 1)
-	{
-		for(int32 i = 1; i <= (SegmentArray.Num() - 1); i++)
-		{
-			FVector PreviousSegmentLoc = SegmentArray[i - 1]->GetActorLocation();
-			// TODO - Trying to set the most recent segment spawn to be located behind the previously spawned segment
-			SegmentArray[i]->SetActorLocation(PreviousSegmentLoc + ((SegmentArray[i - 1]->GetActorForwardVector() * -1) * 100.0f));
-		}	
-	}	
-}
-
 void ASnake::UpdateFirstBodySegmentLoc()
 {
 	if(!FirstSegment)
@@ -160,6 +141,7 @@ void ASnake::UpdateFirstBodySegmentLoc()
 	{
 		// This updates the first segment's loc to always be 100 units behind the head
 		FirstSegment->SetActorLocation(SnakeHead->GetComponentLocation() + (SnakeHead->GetForwardVector() * -1) * 100.0f);
+		UE_LOG(LogTemp, Warning, TEXT("First Segment loc: %s"), *(FirstSegment->GetActorLocation().ToString()));
 	}
 }
 
@@ -190,6 +172,26 @@ void ASnake::UpdateNextSegmentRotation()
 			SegmentArray[i]->SetActorRotation(PreviousSegmentRotation);
 		}		
 	}
+}
+
+void ASnake::UpdateNextSegmentLoc()
+{
+	if(!NextSegment)
+	{
+		return;
+	}
+	if(NextSegment && SegmentArray.Num() > 1)
+	{
+		for(int32 i = 1; i <= (SegmentArray.Num() - 1); i++)
+		{
+			FVector PreviousSegmentLoc = SegmentArray[i - 1]->GetActorLocation();
+
+			/* 100.0f is the width/height of each actor, so currently the new segments are being spawned in the location
+			of the previous segment + 100 units */
+			
+			SegmentArray[i]->SetActorLocation(PreviousSegmentLoc + ((SegmentArray[i - 1]->GetActorForwardVector() * -1) * 100.0f));
+		}	
+	}	
 }
 
 FVector ASnake::GetPreviousSegmentLoc()
