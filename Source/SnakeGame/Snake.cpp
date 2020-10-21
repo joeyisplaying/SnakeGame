@@ -28,19 +28,10 @@ void ASnake::InitCamera()
 void ASnake::SetSnakeHeadBounds()
 {
 	SnakeHead->GetLocalBounds(OUT MinSnakeHeadBounds, OUT MaxSnakeHeadBounds);
-	/*MinSnakeHeadBounds /= 20.0f;
-	MaxSnakeHeadBounds /= 20.0f;*/
-
 }
 
 void ASnake::MoveUp(float Value)
 {
-	if(!BoardRef)
-	{
-		UE_LOG(LogTemp, Error, TEXT("Cannot access Min/MaxBoardBounds due to BoardRef not being assigned"));
-		return;
-	}
-
 	if(SnakeHead->GetRelativeLocation().Y >= 50.0f)
 	{
 		MovementDirection.Y = 1.0f;
@@ -83,10 +74,9 @@ FVector ASnake::GetCurrentSnakeHeadLoc() const
 	return SnakeHead->GetComponentLocation();
 }
 
-void ASnake::SpawnFirstSegment() 
-{
-	// TODO - Maybe use GetForwardVector() for this function?
-	
+// Spawns snake segment (currently when Space Bar is pressed)
+void ASnake::SpawnSegment() 
+{	
 	if(!SegmentClass)
 	{
 		UE_LOG(LogTemp, Error, TEXT("SEGMENT CLASS NOT ASSIGNED"));
@@ -131,6 +121,7 @@ void ASnake::SpawnFirstSegment()
 	}
 }
 
+// Updates the location of the first segment relative to the head of the snake
 void ASnake::UpdateFirstBodySegmentLoc()
 {
 	if(!FirstSegment)
@@ -145,6 +136,7 @@ void ASnake::UpdateFirstBodySegmentLoc()
 	}
 }
 
+// Updates the rotation of the first segment relative to the head of the snake
 void ASnake::UpdateFirstBodyRotation()
 {
 	if(!FirstSegment)
@@ -157,6 +149,7 @@ void ASnake::UpdateFirstBodyRotation()
 	}
 }
 
+// Updates the rotation of each segment relative to the previous segment in the snake
 void ASnake::UpdateNextSegmentRotation()
 {
 	if(!NextSegment)
@@ -174,6 +167,7 @@ void ASnake::UpdateNextSegmentRotation()
 	}
 }
 
+// Updates the location of each segment relative to the previous segment in the snake
 void ASnake::UpdateNextSegmentLoc()
 {
 	if(!NextSegment)
@@ -197,10 +191,13 @@ void ASnake::UpdateNextSegmentLoc()
 FVector ASnake::GetPreviousSegmentLoc()
 {
 	FVector PreviousSegmentLoc;
+	// If SegmentArray.Num() == 1, then the FirstSegment has been added to the SegmentArray
 	if(SegmentArray.Num() == 1)
 	{
 		PreviousSegmentLoc = SegmentArray[SegmentArray.Num() - 1]->GetActorLocation();
 	}
+	
+	// If SegmentArray.Num() >= 2, then at least 1 NextSegment spawned actor has been added to the SegmentArray
 	if(SegmentArray.Num() >= 2)
 	{
 		PreviousSegmentLoc = SegmentArray[SegmentArray.Num() - 2]->GetActorLocation();
@@ -262,7 +259,7 @@ void ASnake::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis("MoveUp",this, &ASnake::MoveUp);
 	PlayerInputComponent->BindAxis("MoveAcross",this, &ASnake::MoveAcross);
 
-	PlayerInputComponent->BindAction("Spawn", IE_Pressed, this, &ASnake::SpawnFirstSegment);
+	PlayerInputComponent->BindAction("Spawn", IE_Pressed, this, &ASnake::SpawnSegment);
 	
 }
 

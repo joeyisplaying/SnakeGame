@@ -13,6 +13,8 @@ class ABodySegment;
 class UArrowComponent;
 class ABoard;
 
+/* --- A LOT OF THIS CODE NEEDS REFACTORING --- */
+
 UCLASS()
 class SNAKEGAME_API ASnake : public APawn
 {
@@ -70,8 +72,6 @@ public:
 	FVector MinSnakeHeadBounds;
 	FVector MaxSnakeHeadBounds;
 
-	// TODO :: May need to change board bounds - Currently the board bounds are not in keeping with its scale. I.e. it's max bounds are still 100, not 2000
-
 public:
 	/* --- Snake Segments --- */
 
@@ -84,7 +84,7 @@ public:
 	ABodySegment* NextSegment{nullptr};
 	int32 SegmentIndex{0};
 
-	void SpawnFirstSegment();
+	void SpawnSegment();
 	void UpdateNextSegmentLoc();
 	void UpdateFirstBodySegmentLoc();
 	void UpdateFirstBodyRotation();

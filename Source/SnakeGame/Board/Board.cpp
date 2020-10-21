@@ -40,9 +40,6 @@ void ABoard::BeginPlay()
 {
 	Super::BeginPlay();
 	SetBoardBounds();
-	UE_LOG(LogTemp, Warning, TEXT("Min Board Bounds: %s"), *(MinBoardBounds.ToString()));
-	UE_LOG(LogTemp, Warning, TEXT("Max Board Bounds: %s"), *(MaxBoardBounds.ToString()));
-	
 }
 
 // Called every frame
