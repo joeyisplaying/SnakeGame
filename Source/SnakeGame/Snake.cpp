@@ -6,6 +6,7 @@
 #include "Camera/CameraComponent.h"
 #include "SnakeGame/BodySegment.h"
 #include "Components/ArrowComponent.h"
+#include "Framework/MultiBox/MultiBoxExtender.h"
 #include "SnakeGame/Board/Board.h"
 
 #define OUT
@@ -92,38 +93,12 @@ void ASnake::SpawnFirstSegment()
 		UE_LOG(LogTemp, Error, TEXT("SEGMENT CLASS NOT ASSIGNED"));
 		return;
 	}
-	// !TempSegment means that it can only spawn once
+	// SegmentArray.Num() == 0 means that it can only spawn once
 	if(SegmentClass && SegmentArray.Num() == 0)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Space Bar Pressed - SPAWNING FIRST SEGMENT"));
 
-		FVector SpawnLocation;
-		if(SnakeHead->GetComponentRotation().Vector().X == -1)
-		{
-			SpawnLocation = GetCurrentSnakeHeadLoc();
-			SpawnLocation.X += 100.0f;
-		}
-		else if(SnakeHead->GetComponentRotation().Vector().X == 1)
-		{
-			SpawnLocation = GetCurrentSnakeHeadLoc();
-			SpawnLocation.X -= 100.0f;
-		}
-		else if(SnakeHead->GetComponentRotation().Vector().Y == -1)
-		{
-			// TODO - Fix bug where when SnakeHead vector Y == -1, the SpawnLocation appears to be random, all others work fine
-			SpawnLocation = GetCurrentSnakeHeadLoc();
-			SpawnLocation.Y += 100.0f;
-			/* Whenever I move the default pawn in the rotation vector of Y = -1 the TempSegment spawn object spawns at relative loc:
-			 X = 0.0, Y = 0.0, Z = -9223372036854775808.0. All conditions work as expected (which is directly behind the SnakeHead.
-			 Also, if I spawn the actor when moving in the other 3 directions, the actor spawns where I want it to. However, if I do this
-			 and then move in the Y = -1 direction, the TempSegment remains static and no longer updates its location to be directly
-			 behind the SnakeHead. */
-		}
-		else if(SnakeHead->GetComponentRotation().Vector().Y == 1)
-		{
-			SpawnLocation = GetCurrentSnakeHeadLoc();
-			SpawnLocation.Y -= 100.0f;
-		}
+		const FVector SpawnLocation = SnakeHead->GetComponentLocation() + ((SnakeHead->GetForwardVector() * -1) * 100.0f);
 		const FRotator SpawnRotation = SnakeHead->GetComponentRotation();
 
 		FirstSegment = GetWorld()->SpawnActor<ABodySegment>(SegmentClass, SpawnLocation, SpawnRotation);
@@ -131,65 +106,105 @@ void ASnake::SpawnFirstSegment()
 		
 		SegmentArray.Push(FirstSegment);
 	}
-	/*if (SegmentClass && SegmentArray.Num() > 0)
+	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Space Bar Pressed - SPAWNING REST OF SNAKE"));
+		FVector SpawnLocation;
+		FRotator SpawnRotation;
+		UE_LOG(LogTemp, Warning, TEXT("Space Bar Pressed - SPAWNING NEXT SEGMENT"));
 
-	}*/
-}
+		if(SegmentArray.Num() == 1)
+		{
+			SpawnLocation = GetPreviousSegmentLoc() + ((SegmentArray[0]->GetActorForwardVector() * -1) * 100.0f);
+			SpawnRotation = SegmentArray[0]->GetActorRotation();
+			SegmentIndex++;
+		}
+		else
+		{
+			SpawnLocation = GetPreviousSegmentLoc() + ((SegmentArray[SegmentIndex]->GetActorForwardVector() * -1) * 100.0f);
+			SpawnRotation = SegmentArray[SegmentIndex]->GetActorRotation();
+			SegmentIndex++;
+		}
 
-FVector ASnake::GetNextSegmentLoc()
-{
-	FVector SegmentLoc;
-	
-	for(int32 i = 0; i <= (SegmentArray.Num() - 1); i++)
-	{
-		SegmentLoc = SegmentArray[i - 1]->GetActorLocation();		
+		NextSegment = GetWorld()->SpawnActor<ABodySegment>(SegmentClass, SpawnLocation, SpawnRotation);
+		NextSegment->SetOwner(this);
+
+		SegmentArray.Push(NextSegment);
 	}
-
-	return SegmentLoc;
 }
 
-void ASnake::SetNextSegmentLoc()
+void ASnake::UpdateNextSegmentLoc()
 {
-	if(SegmentArray.Num() == 0)
+	// TODO - Currently getting a crash when trying to update the locations of the next segments after the first!
+	if(!NextSegment)
 	{
 		return;
 	}
-	if(SegmentArray.Num() > 0)
+	if(NextSegment && SegmentArray.Num() > 1)
 	{
-		for(int32 i = 0; i <= (SegmentArray.Num() - 1); i++)
+		for(int32 i = 1; i <= (SegmentArray.Num() - 1); i++)
 		{
+			FVector PreviousSegmentLoc = SegmentArray[i - 1]->GetActorLocation();
 			// TODO - Trying to set the most recent segment spawn to be located behind the previously spawned segment
-			SegmentArray[i]->SetActorLocation(GetNextSegmentLoc() + ((SegmentArray[i - 1]->GetActorForwardVector() * -1) * 100.0f));
-		}		
-	}
+			SegmentArray[i]->SetActorLocation(PreviousSegmentLoc + ((SegmentArray[i - 1]->GetActorForwardVector() * -1) * 100.0f));
+		}	
+	}	
 }
 
 void ASnake::UpdateFirstBodySegmentLoc()
 {
 	if(!FirstSegment)
 	{
-		UE_LOG(LogTemp, Error, TEXT("TEMP SEGMENT NOT ASSIGNED"));
 		return;
 	}
 	if(FirstSegment)
 	{
+		// This updates the first segment's loc to always be 100 units behind the head
 		FirstSegment->SetActorLocation(SnakeHead->GetComponentLocation() + (SnakeHead->GetForwardVector() * -1) * 100.0f);
 	}
 }
 
-void ASnake::UpdateArraySegmentLoc()
+void ASnake::UpdateFirstBodyRotation()
 {
-	if(SegmentArray.Num() > 1)
+	if(!FirstSegment)
 	{
-		// SegmentArray[0]->SetActorLocation()
-		for (int32 i = 1; i < SegmentArray.Num(); i++)
-		{
-			SegmentArray[i]->SetActorLocation(SegmentArray[i - 1]->GetActorLocation());
-			UE_LOG(LogTemp, Warning, TEXT("Segment loc: %s"), *(SegmentArray[i]->GetActorLocation().ToString()));
-		}
+		return;
 	}
+	if(FirstSegment)
+	{
+		FirstSegment->SetActorRotation(SnakeHead->GetRelativeRotation());
+	}
+}
+
+void ASnake::UpdateNextSegmentRotation()
+{
+	if(!NextSegment)
+	{
+		return;
+	}
+	if(NextSegment && SegmentArray.Num() >= 2)
+	{
+		for(int32 i = 1; i <= (SegmentArray.Num() - 1); i++)
+		{
+			FRotator PreviousSegmentRotation = SegmentArray[i - 1]->GetActorRotation();
+			
+			SegmentArray[i]->SetActorRotation(PreviousSegmentRotation);
+		}		
+	}
+}
+
+FVector ASnake::GetPreviousSegmentLoc()
+{
+	FVector PreviousSegmentLoc;
+	if(SegmentArray.Num() == 1)
+	{
+		PreviousSegmentLoc = SegmentArray[SegmentArray.Num() - 1]->GetActorLocation();
+	}
+	if(SegmentArray.Num() >= 2)
+	{
+		PreviousSegmentLoc = SegmentArray[SegmentArray.Num() - 2]->GetActorLocation();
+	}
+	
+	return PreviousSegmentLoc;
 }
 
 // Sets default values
@@ -217,26 +232,24 @@ void ASnake::BeginPlay()
 {
 	Super::BeginPlay();
 	SetSnakeHeadBounds();
-	//SnakeHead->SetRelativeLocation(SnakeHeadStartingLoc);
-	UE_LOG(LogTemp, Warning, TEXT("Min Snake Head Bounds: %s"), *(MinSnakeHeadBounds.ToString()));
-	UE_LOG(LogTemp, Warning, TEXT("Max Snake Head Bounds: %s"), *(MaxSnakeHeadBounds.ToString()));
+
 }
 
 // Called every frame
 void ASnake::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	UE_LOG(LogTemp, Warning, TEXT("Snake relative loc: %f"), SnakeHead->GetRelativeLocation().Y);
 	
 	if(!MovementDirection.IsZero())
 	{
 		const FVector NewLocation = SnakeHead->GetRelativeLocation() + (MovementDirection * DeltaTime * SnakeHeadSpeed);
 		SnakeHead->SetRelativeLocation(NewLocation);
+		
 		UpdateFirstBodySegmentLoc();
-		/*UpdateArraySegmentLoc();*/
+		UpdateFirstBodyRotation();
+		UpdateNextSegmentLoc();
+		UpdateNextSegmentRotation();
 	}
-	/*UE_LOG(LogTemp, Warning, TEXT("SnakeHead Loc: %s"), *(SnakeHead->GetRelativeLocation().ToString()));
-	UE_LOG(LogTemp, Warning, TEXT("SnakeHead RLoc: %s"), *(SnakeHead->GetComponentRotation().Vector().ToString()));*/
 }
 
 // Called to bind functionality to input

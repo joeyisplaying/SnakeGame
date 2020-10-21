@@ -82,13 +82,15 @@ public:
 		USceneComponent* SegmentSpawnPoint{nullptr};
 	ABodySegment* FirstSegment{nullptr};
 	ABodySegment* NextSegment{nullptr};
+	int32 SegmentIndex{0};
 
 	void SpawnFirstSegment();
-	FVector GetNextSegmentLoc();
-	void SetNextSegmentLoc();
+	void UpdateNextSegmentLoc();
 	void UpdateFirstBodySegmentLoc();
+	void UpdateFirstBodyRotation();
+	void UpdateNextSegmentRotation();
+	FVector GetPreviousSegmentLoc();
 	TArray<ABodySegment*> SegmentArray;
-	void UpdateArraySegmentLoc();
 	UPROPERTY(EditAnywhere, Category = "Board Ref")
 		ABoard* BoardRef{nullptr};
 	FVector ForwardVec{};

@@ -23,27 +23,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41970d5c-189c-4881-9a4c-0fd9915ae1a4" name="Default Changelist" comment="Implemented correct spawn location for first body segment; first body segment follows head; BUG: When moving up (vector rotation -1 in the Y axis), the body segment spawns in a seemingly random loc and does not follow the snake head.">
-      <change afterPath="$PROJECT_DIR$/Content/Blueprints/BP_Snake.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Board/BP_Board.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Meshes/SM_Wall.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Textures/MaterialInstances/MI_GridCell.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/Board/Board.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/Board/Board.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/contentModel.xml" afterDir="false" />
+    <list default="true" id="41970d5c-189c-4881-9a4c-0fd9915ae1a4" name="Default Changelist" comment="Fixed bug where first segment would not update location if Y vector == -1; TODO - update proceeding segements location so they follow in a train.">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEditor.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEditor.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_SnakeGameModeBase.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_SnakeGameModeBase.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Snake/BP_Snake.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/MainMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/MainMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/MainMap_BuiltData.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/MainMap_BuiltData.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Meshes/SM_Board.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Meshes/SM_Board.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Meshes/SM_SnakeBoard.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Meshes/SM_SnakeHead.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Meshes/SM_SnakeHead.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Snake.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/SnakeGame/SnakeFood.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/SnakeGame/SnakeFood.h" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -438,7 +421,8 @@
       <workItem from="1603106214349" duration="3246000" />
       <workItem from="1603109669026" duration="6176000" />
       <workItem from="1603131690910" duration="176000" />
-      <workItem from="1603288974115" duration="4093000" />
+      <workItem from="1603288974115" duration="7284000" />
+      <workItem from="1603307347181" duration="1776000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1602416613208</created>
@@ -475,7 +459,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602457472938</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Fixed bug where first segment would not update location if Y vector == -1; TODO - update proceeding segements location so they follow in a train.">
+      <created>1603293167562</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1603293167562</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -502,7 +493,8 @@
     <MESSAGE value="Implemented boundaries to the board preventing SnakeHead from going over the edge" />
     <MESSAGE value="Implemented spawn function to spawn when hit spacebar; Implemented pawn rotation to face direction of movement." />
     <MESSAGE value="Implemented correct spawn location for first body segment; first body segment follows head; BUG: When moving up (vector rotation -1 in the Y axis), the body segment spawns in a seemingly random loc and does not follow the snake head." />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented correct spawn location for first body segment; first body segment follows head; BUG: When moving up (vector rotation -1 in the Y axis), the body segment spawns in a seemingly random loc and does not follow the snake head." />
+    <MESSAGE value="Fixed bug where first segment would not update location if Y vector == -1; TODO - update proceeding segements location so they follow in a train." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed bug where first segment would not update location if Y vector == -1; TODO - update proceeding segements location so they follow in a train." />
   </component>
   <component name="WindowStateProjectService">
     <state width="2517" height="401" key="GridCell.Tab.0.bottom" timestamp="1603109483527">
@@ -573,25 +565,25 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="860" y="443" key="IDE.errors.dialog/0.0.2560.1400@0.0.2560.1400" timestamp="1602416706022" />
-    <state x="1141" y="405" key="RiderGenerateDialog" timestamp="1602435514418">
+    <state x="1141" y="405" key="RiderGenerateDialog" timestamp="1603308711222">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1141" y="405" key="RiderGenerateDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1602435514417" />
+    <state x="1141" y="405" key="RiderGenerateDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1603308711222" />
     <state x="781" y="345" key="SettingsEditor" timestamp="1603059608214">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="781" y="345" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1603059608214" />
-    <state x="872" y="433" key="Vcs.Push.Dialog.v2" timestamp="1602457485536">
+    <state x="872" y="433" key="Vcs.Push.Dialog.v2" timestamp="1603293169722">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="872" y="433" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1602457485536" />
+    <state x="872" y="433" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1603293169722" />
     <state x="901" y="357" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1602420980761">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="901" y="357" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.2560.1400@0.0.2560.1400" timestamp="1602420980761" />
-    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup" timestamp="1602455172890">
+    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup" timestamp="1603293141805">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1602455172890" />
+    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1603293141805" />
   </component>
 </project>
