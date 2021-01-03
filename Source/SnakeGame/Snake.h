@@ -101,6 +101,11 @@ public:
 	FVector FirstSegmentTickLoc{};
 	FVector NextSegmentTickLoc{};
 	TArray <FVector> NextSegmentTickArray;
+	TArray <FVector> OldFirstSegmentPosArray;
+
+	FVector NewHeadLoc;
+	FVector OldHeadLoc;
+	FVector OldFirstSegmentPos;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Constraint")
 		UPhysicsConstraintComponent* PhysicsConstraint;

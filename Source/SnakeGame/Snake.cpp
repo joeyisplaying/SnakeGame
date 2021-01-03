@@ -244,41 +244,53 @@ void ASnake::Tick(float DeltaTime)
 	
 	if(!MovementDirection.IsZero())
 	{
-		SnakeHeadTickLoc = SnakeHead->GetRelativeLocation() + ((SnakeHead->GetForwardVector() * -1) * 100.0f);
+		OldHeadLoc = SnakeHead->GetRelativeLocation();
+
 		const FVector NewLocation = SnakeHead->GetRelativeLocation() + (MovementDirection * DeltaTime * SnakeHeadSpeed);
 		SnakeHead->SetRelativeLocation(NewLocation);
 		
-		UpdateFirstBodySegmentLoc();
-		UpdateFirstBodyRotation();
+		/*UpdateFirstBodySegmentLoc();
+		UpdateFirstBodyRotation();*/
+
+		// FirstSegmentPos = NewHeadPos - Difference between OldHeadPos and NewHeadPos(NewHeadPos - OldHeadPos)
+		// NextSegmentPos = Seg[i - 1].NewPos - Difference between (Seg[i - 1].NewPos - Seg[i - 1].OldPos)
+		// Variables: NewHeadPos; OldHeadPos;
 
 		if(FirstSegment)
 		{
-			FirstSegmentTickLoc = FirstSegment->GetActorLocation() + ((FirstSegment->GetActorForwardVector() * -1) * 100.0f);
-		}
+			NewHeadLoc = SnakeHead->GetComponentLocation();
 
-		UpdateNextSegmentLoc();
-		UpdateNextSegmentRotation();
+			// NewFirstSegmentLoc = NewSnakeHeadLoc - the difference between the NewSnakeHeadLoc and the OldSnakeHeadLoc
+			FVector NewFirstSegmentLoc = NewHeadLoc - (NewHeadLoc - OldHeadLoc);
+		
+			SegmentArray[0]->SetActorLocation(NewFirstSegmentLoc);
 
-		if(NextSegment)
-		{
-			for(int32 i = 1; i <= (SegmentArray.Num() - 1); i++)
+			for (int32 i = 1; i < SegmentArray.Num(); i++)
 			{
-				NextSegmentTickLoc = SegmentArray[i]->GetActorLocation();
-				NextSegmentTickArray.Push(NextSegmentTickLoc);
+				OldFirstSegmentPos = SegmentArray[i - 1]->GetActorLocation();
+				// The element number of the position array correlates with the element number of the segment array.
+				// I.e. The old position of SegmentArray[0] is the FVector OldFirstSegmentPosArray[0].
+				OldFirstSegmentPosArray.Push(OldFirstSegmentPos);
+			}
+			for (int32 i = 1; i < SegmentArray.Num(); i++)
+			{				
+				SegmentArray[i]->SetActorLocation(OldFirstSegmentPosArray[i]);
 			}
 		}
-
+		/*
+		UpdateNextSegmentLoc();
+		UpdateNextSegmentRotation();*/
 	}
 
 	// TODO - Maybe use UPhysicsConstraintComponent to chain actors together? GAME CRASHING IN CURRENT STATE!
-	if(FirstSegment)
+	/*if(FirstSegment)
 	{
 		PhysicsConstraint->SetConstrainedComponents(SnakeHead, "Snake Head", FirstSegment->SegmentMesh, "First Segment");
 	}
 	if(NextSegment)
 	{
 		FirstSegment->SegmentPhysicsConstraint->SetConstrainedComponents(FirstSegment->SegmentMesh, "First Segment", NextSegment->SegmentMesh, "NextSegment");
-	}
+	}*/
 	
 }
 
