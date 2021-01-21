@@ -106,7 +106,7 @@ void ASnake::SpawnSegment()
 	}
 }
 
-// Updates the location of the first segment relative to the head of the snake
+// Updates the location of the segment relative to the head of the snake
 void ASnake::UpdateTailSegmentLoc()
 {
 	if(!TailSegment)
