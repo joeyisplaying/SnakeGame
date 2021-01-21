@@ -89,5 +89,6 @@ public:
 		ABoard* BoardRef{nullptr};
 
 	/* --- Storing Segment Locations on Tick --- */
-	FVector PreviousTailSegmentLoc;	
+	FVector PreviousTailSegmentLoc;
+	FVector PreviousTailSegmentForwardVec;
 };

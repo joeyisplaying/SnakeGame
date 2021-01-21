@@ -120,6 +120,8 @@ void ASnake::UpdateTailSegmentLoc()
 			const FVector CurrentSectionLoc = TailSegmentArray[i]->GetActorLocation();
 			TailSegmentArray[i]->SetActorLocation(PreviousTailSegmentLoc);
 			PreviousTailSegmentLoc = CurrentSectionLoc;
+
+			// TODO: Set body segments apart so they are not on top of one another but still move in a train
 		}
 	}
 }
