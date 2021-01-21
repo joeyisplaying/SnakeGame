@@ -26,9 +26,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41970d5c-189c-4881-9a4c-0fd9915ae1a4" name="Default Changelist" comment="Refactored code">
+    <list default="true" id="41970d5c-189c-4881-9a4c-0fd9915ae1a4" name="Default Changelist" comment="Updated TODO list">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultInput.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultInput.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Snake.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.h" afterDir="false" />
     </list>
@@ -46,8 +46,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://E:/Unreal/Unreal Projects/SnakeGame 4.26/Source/SnakeGame/Snake.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://E:/Unreal/Unreal Projects/SnakeGame 4.26/Source/SnakeGame/BodySegment.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../Engine/UE_4.26/Engine/Source/Runtime/Core/Public/Logging/LogMacros.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -432,7 +431,8 @@
       <workItem from="1610991321006" duration="2071000" />
       <workItem from="1611180805326" duration="2621000" />
       <workItem from="1611188178947" duration="1949000" />
-      <workItem from="1611230094140" duration="3552000" />
+      <workItem from="1611230094140" duration="4363000" />
+      <workItem from="1611268392769" duration="3250000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1602416613208</created>
@@ -532,7 +532,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611232557960</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Updated TODO list">
+      <created>1611233663397</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1611233663397</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -566,7 +573,8 @@
     <MESSAGE value="Updated project to be compatible with UE4 4.26" />
     <MESSAGE value="FIXED the tail following the head problem (finally!) - ended up being embarrassingly simple. Body segments now follow the head like a train. &#10;&#10;TODO - Space the segments out appropriately, currently too close together." />
     <MESSAGE value="Refactored code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactored code" />
+    <MESSAGE value="Updated TODO list" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated TODO list" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

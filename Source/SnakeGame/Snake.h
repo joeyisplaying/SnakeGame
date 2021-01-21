@@ -91,4 +91,13 @@ public:
 	/* --- Storing Segment Locations on Tick --- */
 	FVector PreviousTailSegmentLoc;
 	FVector PreviousTailSegmentForwardVec;
+	FVector MoveAmount;
+
+	void MoveUp();
+	void MoveDown();
+	void MoveLeft();
+	void MoveRight();
+
+	FVector MoveDir;
+	float MoveStepSize;
 };
