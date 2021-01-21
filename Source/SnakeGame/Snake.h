@@ -73,6 +73,9 @@ public:
 
 public:
 	/* --- Snake Segments --- */
+	void SpawnSegment();
+	void UpdateTailSegmentLoc();
+	TArray<ABodySegment*> TailSegmentArray;
 
 	/* --- Segment Components --- */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Segments")
@@ -80,25 +83,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Segments")
 		USceneComponent* SegmentSpawnPoint{nullptr};
 	ABodySegment* TailSegment{nullptr};
-	int32 SegmentIndex{0};
-	int32 TailLength{};
-	FVector PreviousTailSegmentLoc;
 
-	void SpawnSegment();
-	void UpdateTailSegmentLoc();
-	TArray<ABodySegment*> TailSegmentArray;
+	/* --- Storing the Board actor in BoardRef --- */
 	UPROPERTY(EditAnywhere, Category = "Board Ref")
 		ABoard* BoardRef{nullptr};
-	FVector ForwardVec{};
 
-	/* --- Storing Locations on Tick --- */
-	FVector SnakeHeadTickLoc{};
-	FVector FirstSegmentTickLoc{};
-	FVector NextSegmentTickLoc{};
-	TArray <FVector> NextSegmentTickArray;
-	TArray <FVector> OldFirstSegmentPosArray;
-
-	FVector NewHeadLoc;
-	FVector OldHeadLoc;
-	FVector OldFirstSegmentPos;
+	/* --- Storing Segment Locations on Tick --- */
+	FVector PreviousTailSegmentLoc;	
 };

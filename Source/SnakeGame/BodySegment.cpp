@@ -12,21 +12,18 @@ ABodySegment::ABodySegment()
 
 	SegmentMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Segment Mesh"));
 	RootComponent = SegmentMesh;
-
-	SegmentPhysicsConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(TEXT("Physics Constraint"));
+	
 }
 
 // Called when the game starts or when spawned
 void ABodySegment::BeginPlay()
 {
-	Super::BeginPlay();
-	
+	Super::BeginPlay();	
 }
 
 // Called every frame
 void ABodySegment::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 

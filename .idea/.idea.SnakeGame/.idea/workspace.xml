@@ -26,10 +26,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41970d5c-189c-4881-9a4c-0fd9915ae1a4" name="Default Changelist" comment="Updated project to be compatible with UE4 4.26">
+    <list default="true" id="41970d5c-189c-4881-9a4c-0fd9915ae1a4" name="Default Changelist" comment="FIXED the tail following the head problem (finally!) - ended up being embarrassingly simple. Body segments now follow the head like a train. &#10;&#10;TODO - Space the segments out appropriately, currently too close together.">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/MainMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/MainMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/MainMap_BuiltData.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/MainMap_BuiltData.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/SnakeGame/BodySegment.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/BodySegment.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/SnakeGame/BodySegment.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/BodySegment.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Snake.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.h" afterDir="false" />
     </list>
@@ -48,8 +48,10 @@
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.h" />
+      <option value="$PROJECT_DIR$/Source/SnakeGame/BodySegment.h" />
+      <option value="$PROJECT_DIR$/Source/SnakeGame/BodySegment.cpp" />
       <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" />
+      <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.h" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1ijM2MZ2VK7krdBgYFfGwZu3oUs" />
@@ -427,7 +429,7 @@
       <workItem from="1610991321006" duration="2071000" />
       <workItem from="1611180805326" duration="2621000" />
       <workItem from="1611188178947" duration="1949000" />
-      <workItem from="1611230094140" duration="1219000" />
+      <workItem from="1611230094140" duration="2275000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1602416613208</created>
@@ -506,7 +508,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609706047878</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="FIXED the tail following the head problem (finally!) - ended up being embarrassingly simple. Body segments now follow the head like a train. &#10;&#10;TODO - Space the segments out appropriately, currently too close together.">
+      <created>1611231392322</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1611231392322</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -538,7 +547,8 @@
     <MESSAGE value="TODO - Need to update the locations of the segments to follow like a train/snake." />
     <MESSAGE value="TODO - Maybe use UPhysicsConstraintComponent to chain actors together? GAME CRASHING IN CURRENT STATE!" />
     <MESSAGE value="Updated project to be compatible with UE4 4.26" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated project to be compatible with UE4 4.26" />
+    <MESSAGE value="FIXED the tail following the head problem (finally!) - ended up being embarrassingly simple. Body segments now follow the head like a train. &#10;&#10;TODO - Space the segments out appropriately, currently too close together." />
+    <option name="LAST_COMMIT_MESSAGE" value="FIXED the tail following the head problem (finally!) - ended up being embarrassingly simple. Body segments now follow the head like a train. &#10;&#10;TODO - Space the segments out appropriately, currently too close together." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

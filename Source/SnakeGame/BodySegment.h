@@ -6,8 +6,6 @@
 #include "GameFramework/Actor.h"
 #include "BodySegment.generated.h"
 
-class UPhysicsConstraintComponent;
-
 UCLASS()
 class SNAKEGAME_API ABodySegment : public AActor
 {
@@ -27,8 +25,5 @@ protected:
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Segment Mesh")
 		UStaticMeshComponent* SegmentMesh;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Constraint")
-		UPhysicsConstraintComponent* SegmentPhysicsConstraint;
 
 };

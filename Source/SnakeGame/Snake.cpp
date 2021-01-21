@@ -97,7 +97,6 @@ void ASnake::SpawnSegment()
 		if (TailSegment)
 		{
 			TailSegmentArray.Add(TailSegment);
-			TailLength = TailSegmentArray.Num();
 		}
 		if(!TailSegment)
 		{
@@ -115,7 +114,7 @@ void ASnake::UpdateTailSegmentLoc()
 		return;
 	}
 	if(TailSegment)
-	{
+	{		
 		for (int32 i = 0; i < TailSegmentArray.Num(); i++)
 		{
 			const FVector CurrentSectionLoc = TailSegmentArray[i]->GetActorLocation();
@@ -177,4 +176,3 @@ void ASnake::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	PlayerInputComponent->BindAction("Spawn", IE_Pressed, this, &ASnake::SpawnSegment);	
 }
-
