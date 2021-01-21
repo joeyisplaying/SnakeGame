@@ -14,8 +14,6 @@ class UArrowComponent;
 class ABoard;
 class UPhysicsConstraintComponent;
 
-/* --- A LOT OF THIS CODE NEEDS REFACTORING --- */
-
 UCLASS()
 class SNAKEGAME_API ASnake : public APawn
 {
@@ -81,17 +79,14 @@ public:
 		TSubclassOf<ABodySegment> SegmentClass;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Segments")
 		USceneComponent* SegmentSpawnPoint{nullptr};
-	ABodySegment* FirstSegment{nullptr};
-	ABodySegment* NextSegment{nullptr};
+	ABodySegment* TailSegment{nullptr};
 	int32 SegmentIndex{0};
+	int32 TailLength{};
+	FVector PreviousTailSegmentLoc;
 
 	void SpawnSegment();
-	void UpdateNextSegmentLoc();
-	void UpdateFirstBodySegmentLoc();
-	void UpdateFirstBodyRotation();
-	void UpdateNextSegmentRotation();
-	FVector GetPreviousSegmentLoc();
-	TArray<ABodySegment*> SegmentArray;
+	void UpdateTailSegmentLoc();
+	TArray<ABodySegment*> TailSegmentArray;
 	UPROPERTY(EditAnywhere, Category = "Board Ref")
 		ABoard* BoardRef{nullptr};
 	FVector ForwardVec{};
@@ -106,7 +101,4 @@ public:
 	FVector NewHeadLoc;
 	FVector OldHeadLoc;
 	FVector OldFirstSegmentPos;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Physics Constraint")
-		UPhysicsConstraintComponent* PhysicsConstraint;
 };

@@ -4,6 +4,9 @@
     <projectFile>Intermediate/ProjectFiles/SnakeGame.vcxproj</projectFile>
     <projectFile>Intermediate/ProjectFiles/UE4.vcxproj</projectFile>
   </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -23,15 +26,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41970d5c-189c-4881-9a4c-0fd9915ae1a4" name="Default Changelist" comment="TODO - Maybe use UPhysicsConstraintComponent to chain actors together? GAME CRASHING IN CURRENT STATE!">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/riderModule.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="41970d5c-189c-4881-9a4c-0fd9915ae1a4" name="Default Changelist" comment="Updated project to be compatible with UE4 4.26">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/MainMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/MainMap.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/MainMap_BuiltData.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/MainMap_BuiltData.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SnakeGame.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/SnakeGame.uproject" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Snake.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.h" afterDir="false" />
     </list>
@@ -47,6 +45,12 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <changedPaths>
+      <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.h" />
+      <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" />
+    </changedPaths>
   </component>
   <component name="ProjectId" id="1ijM2MZ2VK7krdBgYFfGwZu3oUs" />
   <component name="ProjectViewState">
@@ -66,7 +70,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="CodeLensConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="C++ Project.SnakeGame">
@@ -419,7 +423,11 @@
       <workItem from="1603455101476" duration="1325000" />
       <workItem from="1603456511926" duration="829000" />
       <workItem from="1607007759097" duration="138000" />
-      <workItem from="1609705477941" duration="544000" />
+      <workItem from="1609705477941" duration="1819000" />
+      <workItem from="1610991321006" duration="2071000" />
+      <workItem from="1611180805326" duration="2621000" />
+      <workItem from="1611188178947" duration="1949000" />
+      <workItem from="1611230094140" duration="1219000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1602416613208</created>
@@ -491,7 +499,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603321523331</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Updated project to be compatible with UE4 4.26">
+      <created>1609706047878</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1609706047878</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -522,6 +537,11 @@
     <MESSAGE value="Implemented successful spawning locations/rotations; TODO - Need to update the locations of the segments to follow like a train/snake." />
     <MESSAGE value="TODO - Need to update the locations of the segments to follow like a train/snake." />
     <MESSAGE value="TODO - Maybe use UPhysicsConstraintComponent to chain actors together? GAME CRASHING IN CURRENT STATE!" />
-    <option name="LAST_COMMIT_MESSAGE" value="TODO - Maybe use UPhysicsConstraintComponent to chain actors together? GAME CRASHING IN CURRENT STATE!" />
+    <MESSAGE value="Updated project to be compatible with UE4 4.26" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated project to be compatible with UE4 4.26" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
