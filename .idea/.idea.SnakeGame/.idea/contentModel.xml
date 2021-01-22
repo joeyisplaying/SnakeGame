@@ -49011,6 +49011,8 @@
           </e>
           <e p="BodySegment.cpp" t="Include" />
           <e p="BodySegment.h" t="Include" />
+          <e p="Food.cpp" t="Include" />
+          <e p="Food.h" t="Include" />
           <e p="GameModes" t="Include">
             <e p="SnakeGameModeBase.cpp" t="Include" />
             <e p="SnakeGameModeBase.h" t="Include" />

@@ -2,6 +2,8 @@
 
 
 #include "Snake.h"
+
+#include "Food.h"
 #include "Kismet/GameplayStatics.h"
 #include "Camera/CameraComponent.h"
 #include "SnakeGame/BodySegment.h"
@@ -131,6 +133,27 @@ void ASnake::SpawnSegment()
 	}
 }
 
+void ASnake::SpawnFood()
+{
+	if(!FoodClass)
+	{
+		UE_LOG(LogTemp, Error, TEXT("FoodClass NOT ASSIGNED"));
+		return;
+	}
+	if(FoodClass)
+	{
+		const FVector SpawnLocation = FVector(1000.0f, 1000.0f, 50.0f);
+		const FRotator SpawnRotation = SnakeHead->GetComponentRotation();
+
+		Food = GetWorld()->SpawnActor<AFood>(FoodClass, SpawnLocation, SpawnRotation);
+		Food->SetOwner(this);
+	}
+
+	// TODO: Spawn food at random location
+	// TODO: Delete and spawn new food when overlap with snake
+	// TODO: Spawn snake segments when overlap with food
+}
+
 // Updates the location of the segment relative to the head of the snake
 void ASnake::UpdateTailSegmentLoc()
 {
@@ -193,7 +216,10 @@ ASnake::ASnake()
 void ASnake::BeginPlay()
 {
 	Super::BeginPlay();
-	PrimaryActorTick.TickInterval = 0.5f;
+	TickSpeed = 0.5f;
+	PrimaryActorTick.TickInterval = TickSpeed;
+
+	SpawnFood();
 	
 	SetSnakeHeadBounds();
 	MoveStepSize = SnakeHead->GetStaticMesh()->GetBoundingBox().GetSize().X;

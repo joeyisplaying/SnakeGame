@@ -12,7 +12,7 @@ class USceneComponent;
 class ABodySegment;
 class UArrowComponent;
 class ABoard;
-class UPhysicsConstraintComponent;
+class AFood;
 
 UCLASS()
 class SNAKEGAME_API ASnake : public APawn
@@ -100,4 +100,12 @@ public:
 
 	FVector MoveDir;
 	float MoveStepSize;
+
+	float TickSpeed;
+
+	/* --- Food Code --- */
+	void SpawnFood();
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Food")
+		TSubclassOf<AFood> FoodClass;
+	AFood* Food{nullptr};
 };
