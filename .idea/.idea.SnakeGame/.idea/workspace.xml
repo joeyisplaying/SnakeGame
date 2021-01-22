@@ -26,16 +26,19 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41970d5c-189c-4881-9a4c-0fd9915ae1a4" name="Default Changelist" comment="Changed the mechanics: Changed the tick interval to 0.5 seconds. This allowed me to more easily implement the spawn locations of the segments and how far the keep apart.">
-      <change afterPath="$PROJECT_DIR$/Content/Blueprints/BP_Food.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Meshes/SM_Food.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/Textures/MaterialInstances/MI_Food.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/Food.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/Food.h" afterDir="false" />
+    <list default="true" id="41970d5c-189c-4881-9a4c-0fd9915ae1a4" name="Default Changelist" comment="Implemented spawning food at start of game in the centre of the board.">
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/BP_Fruit.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/Fruit.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/Fruit.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/Overlapable.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/Overlapable.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_Food.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_Snake.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_Snake.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/MainMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/MainMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/MainMap_BuiltData.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/MainMap_BuiltData.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Food.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Food.h" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Snake.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.h" afterDir="false" />
     </list>
@@ -54,16 +57,23 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/../../Engine/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/Templates/SubclassOf.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../Engine/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/Actor.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../Engine/UE_4.26/Engine/Source/Runtime/Engine/Private/Components/PrimitiveComponent.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Engine/UE_4.26/Engine/Source/Runtime/Core/Public/Logging/LogMacros.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../Engine/UE_4.26/Engine/Source/Runtime/Engine/Private/Actor.cpp" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/Source/SnakeGame/BodySegment.h" />
       <option value="$PROJECT_DIR$/Source/SnakeGame/BodySegment.cpp" />
-      <option value="$PROJECT_DIR$/Source/SnakeGame/Food.cpp" />
       <option value="$PROJECT_DIR$/Source/SnakeGame/Food.h" />
-      <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" />
+      <option value="$PROJECT_DIR$/Source/SnakeGame/Food.cpp" />
+      <option value="$PROJECT_DIR$/Source/SnakeGame/Overlapable.cpp" />
+      <option value="$PROJECT_DIR$/Source/SnakeGame/Fruit.h" />
+      <option value="$PROJECT_DIR$/Source/SnakeGame/Fruit.cpp" />
+      <option value="$PROJECT_DIR$/Source/SnakeGame/Overlapable.h" />
       <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.h" />
+      <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1ijM2MZ2VK7krdBgYFfGwZu3oUs" />
@@ -442,7 +452,10 @@
       <workItem from="1611180805326" duration="2621000" />
       <workItem from="1611188178947" duration="1949000" />
       <workItem from="1611230094140" duration="4363000" />
-      <workItem from="1611268392769" duration="5386000" />
+      <workItem from="1611268392769" duration="5842000" />
+      <workItem from="1611320364938" duration="8231000" />
+      <workItem from="1611329971391" duration="2433000" />
+      <workItem from="1611332551996" duration="5772000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1602416613208</created>
@@ -556,7 +569,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611271776079</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Implemented spawning food at start of game in the centre of the board.">
+      <created>1611273899739</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1611273899739</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -592,7 +612,8 @@
     <MESSAGE value="Refactored code" />
     <MESSAGE value="Updated TODO list" />
     <MESSAGE value="Changed the mechanics: Changed the tick interval to 0.5 seconds. This allowed me to more easily implement the spawn locations of the segments and how far the keep apart." />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed the mechanics: Changed the tick interval to 0.5 seconds. This allowed me to more easily implement the spawn locations of the segments and how far the keep apart." />
+    <MESSAGE value="Implemented spawning food at start of game in the centre of the board." />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented spawning food at start of game in the centre of the board." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

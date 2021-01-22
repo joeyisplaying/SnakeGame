@@ -12,7 +12,7 @@ class USceneComponent;
 class ABodySegment;
 class UArrowComponent;
 class ABoard;
-class AFood;
+class AFruit;
 
 UCLASS()
 class SNAKEGAME_API ASnake : public APawn
@@ -92,11 +92,15 @@ public:
 	FVector PreviousTailSegmentLoc;
 	FVector PreviousTailSegmentForwardVec;
 	FVector MoveAmount;
-
-	void MoveUp();
-	void MoveDown();
-	void MoveLeft();
-	void MoveRight();
+	
+	UFUNCTION()
+		void MoveUp();
+	UFUNCTION()
+		void MoveDown();
+	UFUNCTION()
+		void MoveLeft();
+	UFUNCTION()
+		void MoveRight();
 
 	FVector MoveDir;
 	float MoveStepSize;
@@ -104,8 +108,17 @@ public:
 	float TickSpeed;
 
 	/* --- Food Code --- */
-	void SpawnFood();
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Food")
-		TSubclassOf<AFood> FoodClass;
-	AFood* Food{nullptr};
+	UFUNCTION()
+		void SpawnFruit();
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Fruit")
+		TSubclassOf<AFruit> FruitClass;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Fruit")
+		AFruit* Fruit{nullptr};
+
+	ASnake* Snake{nullptr};
+
+	AActor* Cube{nullptr};
+	
+	UFUNCTION()
+		void SnakeEatsFood();
 };

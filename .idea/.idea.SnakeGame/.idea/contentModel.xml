@@ -49011,12 +49011,14 @@
           </e>
           <e p="BodySegment.cpp" t="Include" />
           <e p="BodySegment.h" t="Include" />
-          <e p="Food.cpp" t="Include" />
-          <e p="Food.h" t="Include" />
+          <e p="Fruit.cpp" t="Include" />
+          <e p="Fruit.h" t="Include" />
           <e p="GameModes" t="Include">
             <e p="SnakeGameModeBase.cpp" t="Include" />
             <e p="SnakeGameModeBase.h" t="Include" />
           </e>
+          <e p="Overlapable.cpp" t="Include" />
+          <e p="Overlapable.h" t="Include" />
           <e p="Snake.cpp" t="Include" />
           <e p="Snake.h" t="Include" />
           <e p="SnakeGame.Build.cs" t="Include" />

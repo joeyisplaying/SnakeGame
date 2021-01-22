@@ -2,13 +2,12 @@
 
 
 #include "Snake.h"
-
-#include "Food.h"
+#include "Fruit.h"
 #include "Kismet/GameplayStatics.h"
 #include "Camera/CameraComponent.h"
 #include "SnakeGame/BodySegment.h"
 #include "Components/ArrowComponent.h"
-#include "SnakeGame/Board/Board.h"
+#include "Math/UnrealMathUtility.h"
 
 #define OUT
 
@@ -133,25 +132,53 @@ void ASnake::SpawnSegment()
 	}
 }
 
-void ASnake::SpawnFood()
+void ASnake::SpawnFruit()
 {
-	if(!FoodClass)
+	if(!FruitClass)
 	{
 		UE_LOG(LogTemp, Error, TEXT("FoodClass NOT ASSIGNED"));
 		return;
 	}
-	if(FoodClass)
+	if(FruitClass)
 	{
-		const FVector SpawnLocation = FVector(1000.0f, 1000.0f, 50.0f);
+		const float RandX = FMath::RandRange(0.0f, 2000.0f);
+		const float RandY = FMath::RandRange(0.0f, 2000.0f);
+		
+		const FVector SpawnLocation = FVector(RandX, RandY, 50.0f);
 		const FRotator SpawnRotation = SnakeHead->GetComponentRotation();
 
-		Food = GetWorld()->SpawnActor<AFood>(FoodClass, SpawnLocation, SpawnRotation);
-		Food->SetOwner(this);
+		Fruit = GetWorld()->SpawnActor<AFruit>(FruitClass, SpawnLocation, SpawnRotation);
+		Fruit->SetOwner(this);
 	}
 
-	// TODO: Spawn food at random location
 	// TODO: Delete and spawn new food when overlap with snake
 	// TODO: Spawn snake segments when overlap with food
+}
+
+void ASnake::SnakeEatsFood()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Snake has eaten fruit"));
+	
+	if(!Fruit)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Food not assigned to an actor!"));
+		return;
+	}
+	if (!Snake)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Snake not assigned to an actor!"));
+		return;
+	}
+
+	if(Snake->IsOverlappingActor(Fruit->GetOwner()))
+	{
+		UE_LOG(LogTemp, Error, TEXT("OVERLAP OCCURED"));
+		Fruit->OnOverlap();
+		SpawnFruit();
+		SpawnSegment();
+	}
+
+	// TODO: When the Snake head and the food overlap this function is not firing - not sure why
 }
 
 // Updates the location of the segment relative to the head of the snake
@@ -208,7 +235,12 @@ ASnake::ASnake()
 	Camera->SetupAttachment(SnakeHead);
 		
 	InitSnakeHead();
-	InitCamera();	
+	InitCamera();
+
+	SnakeHead->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	SnakeHead->SetCollisionObjectType(ECC_Pawn);
+	SnakeHead->SetCollisionResponseToAllChannels(ECR_Overlap);
+
 }
 
 // Called when the game starts or when spawned
@@ -216,22 +248,34 @@ ASnake::ASnake()
 void ASnake::BeginPlay()
 {
 	Super::BeginPlay();
+
+	Snake = FindObject<ASnake>(GetWorld()->GetCurrentLevel(), TEXT("BP_Snake_2"));
+	Cube = FindObject<AActor>(GetWorld()->GetCurrentLevel(), TEXT("Cube_2"));
+
 	TickSpeed = 0.5f;
 	PrimaryActorTick.TickInterval = TickSpeed;
 
-	SpawnFood();
-	
+	SpawnFruit();
 	SetSnakeHeadBounds();
 	MoveStepSize = SnakeHead->GetStaticMesh()->GetBoundingBox().GetSize().X;
+
+	
 }
 
 // Called every frame
 void ASnake::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	PreviousTailSegmentLoc = SnakeHead->GetComponentLocation();
-	UE_LOG(LogTemp, Warning, TEXT("Forward vector: %s"), *(SnakeHead->GetForwardVector().ToString()));
 
+	if(Snake->IsOverlappingActor(Fruit))
+	{
+		UE_LOG(LogTemp, Error, TEXT("OVERLAP OCCURED"));
+		Fruit->OnOverlap();
+		SpawnFruit();
+		SpawnSegment();
+	}
+
+	PreviousTailSegmentLoc = SnakeHead->GetComponentLocation();
 	AddActorWorldOffset(MoveDir * MoveStepSize);
 	UpdateTailSegmentLoc();
 	
