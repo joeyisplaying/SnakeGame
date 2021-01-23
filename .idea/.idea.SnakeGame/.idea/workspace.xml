@@ -26,19 +26,18 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41970d5c-189c-4881-9a4c-0fd9915ae1a4" name="Default Changelist" comment="Implemented spawning food at start of game in the centre of the board.">
-      <change afterPath="$PROJECT_DIR$/Content/Blueprints/BP_Fruit.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/Fruit.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/Fruit.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/Overlapable.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/Overlapable.h" afterDir="false" />
+    <list default="true" id="41970d5c-189c-4881-9a4c-0fd9915ae1a4" name="Default Changelist" comment="Removed food files and changed it to fruit class that is a child class of overlappable. Can't get the snake to trigger an overlap event with the spawned fruit.">
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/BP_Food.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/Food.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/SnakeGame/Food.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_Food.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_Fruit.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_Snake.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_Snake.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/MainMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/MainMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Food.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Food.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Fruit.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Fruit.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Overlapable.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Overlapable.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Snake.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.h" afterDir="false" />
     </list>
@@ -66,12 +65,12 @@
     <changedPaths>
       <option value="$PROJECT_DIR$/Source/SnakeGame/BodySegment.h" />
       <option value="$PROJECT_DIR$/Source/SnakeGame/BodySegment.cpp" />
+      <option value="$PROJECT_DIR$/Source/SnakeGame/Overlapable.h" />
+      <option value="$PROJECT_DIR$/Source/SnakeGame/Overlapable.cpp" />
+      <option value="$PROJECT_DIR$/Source/SnakeGame/Fruit.cpp" />
+      <option value="$PROJECT_DIR$/Source/SnakeGame/Fruit.h" />
       <option value="$PROJECT_DIR$/Source/SnakeGame/Food.h" />
       <option value="$PROJECT_DIR$/Source/SnakeGame/Food.cpp" />
-      <option value="$PROJECT_DIR$/Source/SnakeGame/Overlapable.cpp" />
-      <option value="$PROJECT_DIR$/Source/SnakeGame/Fruit.h" />
-      <option value="$PROJECT_DIR$/Source/SnakeGame/Fruit.cpp" />
-      <option value="$PROJECT_DIR$/Source/SnakeGame/Overlapable.h" />
       <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.h" />
       <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" />
     </changedPaths>
@@ -455,7 +454,11 @@
       <workItem from="1611268392769" duration="5842000" />
       <workItem from="1611320364938" duration="8231000" />
       <workItem from="1611329971391" duration="2433000" />
-      <workItem from="1611332551996" duration="5772000" />
+      <workItem from="1611332551996" duration="6028000" />
+      <workItem from="1611348234409" duration="3333000" />
+      <workItem from="1611360730263" duration="925000" />
+      <workItem from="1611396991421" duration="2714000" />
+      <workItem from="1611406922933" duration="2063000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1602416613208</created>
@@ -576,7 +579,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611273899739</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Removed food files and changed it to fruit class that is a child class of overlappable. Can't get the snake to trigger an overlap event with the spawned fruit.">
+      <created>1611338531349</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1611338531349</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -613,7 +623,8 @@
     <MESSAGE value="Updated TODO list" />
     <MESSAGE value="Changed the mechanics: Changed the tick interval to 0.5 seconds. This allowed me to more easily implement the spawn locations of the segments and how far the keep apart." />
     <MESSAGE value="Implemented spawning food at start of game in the centre of the board." />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented spawning food at start of game in the centre of the board." />
+    <MESSAGE value="Removed food files and changed it to fruit class that is a child class of overlappable. Can't get the snake to trigger an overlap event with the spawned fruit." />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed food files and changed it to fruit class that is a child class of overlappable. Can't get the snake to trigger an overlap event with the spawned fruit." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

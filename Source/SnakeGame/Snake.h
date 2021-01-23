@@ -12,7 +12,8 @@ class USceneComponent;
 class ABodySegment;
 class UArrowComponent;
 class ABoard;
-class AFruit;
+class UBoxComponent;
+class AFood;
 
 UCLASS()
 class SNAKEGAME_API ASnake : public APawn
@@ -109,16 +110,25 @@ public:
 
 	/* --- Food Code --- */
 	UFUNCTION()
-		void SpawnFruit();
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Fruit")
-		TSubclassOf<AFruit> FruitClass;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Fruit")
-		AFruit* Fruit{nullptr};
+		void SpawnFood();
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Food")
+		TSubclassOf<AFood> FoodClass;
 
 	ASnake* Snake{nullptr};
 
-	AActor* Cube{nullptr};
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+		UBoxComponent* Volume;
+
+	AFood* Food;
 	
 	UFUNCTION()
 		void SnakeEatsFood();
+
+	UFUNCTION()
+		virtual void PostInitializeComponents() override;
+	UFUNCTION()
+		void OnVolumeBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	UFUNCTION()
+		void OnVolumeEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
 };
