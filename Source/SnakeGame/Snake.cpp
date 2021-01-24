@@ -193,8 +193,20 @@ void ASnake::PostInitializeComponents()
 void ASnake::OnVolumeBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+
 	UE_LOG(LogTemp,Warning, TEXT("Begin Overlap"));
+	Volume->GetOverlappingActors(OUT OverlappingActors);
 	
+	for(int32 i = 0; i < OverlappingActors.Num(); i++)
+	{
+		if (OverlappingActors[i] == nullptr)
+		{
+			UE_LOG(LogTemp,Error, TEXT("No OverlappingActors assigned!"));
+			return;
+		}
+		UE_LOG(LogTemp,Warning, TEXT("Overlapping actor: %s"), *(OverlappingActors[i]->GetName()));
+	}
+		
 	/*if(Cast<AFood>(OtherActor))
 	{	
 		Food->Destroy();	

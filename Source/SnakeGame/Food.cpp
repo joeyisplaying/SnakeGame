@@ -12,6 +12,8 @@ AFood::AFood()
 	FoodMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Food"));
 	RootComponent = FoodMesh;
 
+	FoodMesh->SetGenerateOverlapEvents(true);
+
 }
 
 // Called when the game starts or when spawned
