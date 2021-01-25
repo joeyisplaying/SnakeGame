@@ -3,6 +3,8 @@
 
 #include "Food.h"
 
+#include "Components/BoxComponent.h"
+
 // Sets default values
 AFood::AFood()
 {
@@ -13,6 +15,11 @@ AFood::AFood()
 	RootComponent = FoodMesh;
 
 	FoodMesh->SetGenerateOverlapEvents(true);
+
+	FoodCollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Collision Box"));
+	FoodCollisionBox->SetupAttachment(RootComponent);
+	FoodCollisionBox->SetCollisionResponseToAllChannels(ECR_Overlap);
+	FoodCollisionBox->InitBoxExtent(FVector(50.0f, 50.0f, 50.0f));
 
 }
 

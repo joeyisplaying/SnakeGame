@@ -2,6 +2,8 @@
 
 
 #include "Snake.h"
+
+#include "DrawDebugHelpers.h"
 #include "Food.h"
 #include "Kismet/GameplayStatics.h"
 #include "Camera/CameraComponent.h"
@@ -30,45 +32,6 @@ void ASnake::InitCamera()
 void ASnake::SetSnakeHeadBounds()
 {
 	SnakeHead->GetLocalBounds(OUT MinSnakeHeadBounds, OUT MaxSnakeHeadBounds);
-}
-
-void ASnake::MoveUp(float Value)
-{
-	if(SnakeHead->GetRelativeLocation().Y >= 50.0f)
-	{
-		MovementDirection.Y = 1.0f;
-	}
-
-	MovementDirection.Y = FMath::Clamp(Value, -1.0f, 1.0f);	
-		
-	if(Value == -1.0f)
-	{
-		SnakeHead->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
-	}
-	if(Value == 1.0f)
-	{
-		SnakeHead->SetRelativeRotation(FRotator(0.0f, 90.0f, 0.0f));
-	}
-}
-
-void ASnake::MoveAcross(float Value)
-{
-	if(!BoardRef)
-	{
-		UE_LOG(LogTemp, Error, TEXT("Cannot access Min/MaxBoardBounds due to BoardRef not being assigned"));
-		return;
-	}
-
-	MovementDirection.X = FMath::Clamp(Value, -1.0f, 1.0f);
-
-	if(Value == -1.0f)
-	{
-		SnakeHead->SetRelativeRotation(FRotator(0.0f, 180.0f, 0.0f));
-	}
-	if(Value == 1.0f)
-	{
-		SnakeHead->SetRelativeRotation(FRotator(0.0f, 0.0f, 0.0f));
-	}
 }
 
 FVector ASnake::GetCurrentSnakeHeadLoc() const
@@ -149,68 +112,36 @@ void ASnake::SpawnFood()
 		const FRotator SpawnRotation = SnakeHead->GetComponentRotation();
 
 		Food = GetWorld()->SpawnActor<AFood>(FoodClass, SpawnLocation, SpawnRotation);
-		Food->SetOwner(this);
+		//Food->SetOwner(this);
 	}
 
-	// TODO: Delete and spawn new food when overlap with snake
 	// TODO: Spawn snake segments when overlap with food
-}
-
-void ASnake::SnakeEatsFood()
-{
-	UE_LOG(LogTemp, Warning, TEXT("Snake has eaten fruit"));
-	
-	if(!Food)
-	{
-		UE_LOG(LogTemp, Error, TEXT("Food not assigned to an actor!"));
-		return;
-	}
-	if (!Snake)
-	{
-		UE_LOG(LogTemp, Error, TEXT("Snake not assigned to an actor!"));
-		return;
-	}
-
-	if(Snake->IsOverlappingActor(Food))
-	{
-		UE_LOG(LogTemp, Error, TEXT("OVERLAP OCCURED"));
-		//Food->OnOverlap();
-		SpawnFood();
-		SpawnSegment();
-	}
-
-	// TODO: When the Snake head and the food overlap this function is not firing - not sure why
 }
 
 void ASnake::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 
-	Volume->OnComponentBeginOverlap.AddDynamic(this, &ASnake::OnVolumeBeginOverlap);
-	Volume->OnComponentEndOverlap.AddDynamic(this, &ASnake::OnVolumeEndOverlap);
+	SnakeCollisionBox->OnComponentBeginOverlap.AddDynamic(this, &ASnake::OnVolumeBeginOverlap);
+	SnakeCollisionBox->OnComponentEndOverlap.AddDynamic(this, &ASnake::OnVolumeEndOverlap);
+
 }
 
 void ASnake::OnVolumeBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-
-	UE_LOG(LogTemp,Warning, TEXT("Begin Overlap"));
-	Volume->GetOverlappingActors(OUT OverlappingActors);
-	
-	for(int32 i = 0; i < OverlappingActors.Num(); i++)
+	if(Cast<AFood>(OtherActor))
 	{
-		if (OverlappingActors[i] == nullptr)
+		Food->Destroy();
+
+		if (TickSpeedCheck > 0.0001f)
 		{
-			UE_LOG(LogTemp,Error, TEXT("No OverlappingActors assigned!"));
-			return;
+			PrimaryActorTick.TickInterval *= TickChangeAmount;
 		}
-		UE_LOG(LogTemp,Warning, TEXT("Overlapping actor: %s"), *(OverlappingActors[i]->GetName()));
-	}
 		
-	/*if(Cast<AFood>(OtherActor))
-	{	
-		Food->Destroy();	
-	}*/
+		UE_LOG(LogTemp, Warning, TEXT("Tick Speed = %f"), TickStartSpeed);
+		UE_LOG(LogTemp, Warning, TEXT("Tick Interval = %f"), PrimaryActorTick.TickInterval);
+	}
 }
 
 void ASnake::OnVolumeEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
@@ -218,8 +149,8 @@ void ASnake::OnVolumeEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor
 {
 	if(Cast<AFood>(OtherActor))
 	{
-		UE_LOG(LogTemp,Warning, TEXT("End Overlap"));
 		SpawnFood();
+		SpawnSegment();
 	}	
 }
 
@@ -284,10 +215,10 @@ ASnake::ASnake()
 	SnakeHead->SetCollisionResponseToAllChannels(ECR_Overlap);
 
 	/* --- Trigger for Snake --- */
-	Volume = CreateDefaultSubobject<UBoxComponent>(TEXT("Volume"));
-	Volume->SetupAttachment(GetRootComponent());
-	Volume->InitBoxExtent(FVector(50.0f, 50.0f, 50.0f));
-	Volume->SetCollisionResponseToAllChannels(ECR_Overlap);
+	SnakeCollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Volume"));
+	SnakeCollisionBox->SetupAttachment(GetRootComponent());
+	SnakeCollisionBox->InitBoxExtent(FVector(50.0f, 50.0f, 50.0f));
+	SnakeCollisionBox->SetCollisionResponseToAllChannels(ECR_Overlap);
 
 }
 
@@ -299,8 +230,7 @@ void ASnake::BeginPlay()
 
 	//Snake = FindObject<ASnake>(GetWorld()->GetCurrentLevel(), TEXT("BP_Snake_2"));
 
-	TickSpeed = 0.5f;
-	PrimaryActorTick.TickInterval = TickSpeed;
+	PrimaryActorTick.TickInterval = TickStartSpeed;
 
 	SpawnFood();
 	SetSnakeHeadBounds();
@@ -313,17 +243,12 @@ void ASnake::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	TickSpeedCheck = PrimaryActorTick.TickInterval;
+
 	PreviousTailSegmentLoc = SnakeHead->GetComponentLocation();
 	AddActorWorldOffset(MoveDir * MoveStepSize);
 	UpdateTailSegmentLoc();
 	
-	/*if(!MovementDirection.IsZero())
-	{
-		const FVector NewLocation = SnakeHead->GetRelativeLocation() + (MovementDirection * DeltaTime * SnakeHeadSpeed);
-		SnakeHead->SetRelativeLocation(NewLocation);
-
-		UpdateTailSegmentLoc();
-	}*/
 }
 
 // Called to bind functionality to input
@@ -331,9 +256,6 @@ void ASnake::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	
-	// PlayerInputComponent->BindAxis("MoveUp",this, &ASnake::MoveUp);
-	// PlayerInputComponent->BindAxis("MoveAcross",this, &ASnake::MoveAcross);
-
 	PlayerInputComponent->BindAction("Spawn", IE_Pressed, this, &ASnake::SpawnSegment);
 	
 	PlayerInputComponent->BindAction("Up", IE_Pressed, this, &ASnake::MoveUp);

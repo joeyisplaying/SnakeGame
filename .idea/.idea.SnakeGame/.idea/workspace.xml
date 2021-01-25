@@ -26,9 +26,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41970d5c-189c-4881-9a4c-0fd9915ae1a4" name="Default Changelist" comment="Tried to implement different method of testing for overlap. Still not working">
+    <list default="true" id="41970d5c-189c-4881-9a4c-0fd9915ae1a4" name="Default Changelist" comment="Trying to debug the overlap issue with the food">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SnakeGame/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_Food.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_Food.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_Snake.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_Snake.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/MainMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/MainMap.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Food.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Food.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Food.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Food.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SnakeGame/Snake.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SnakeGame/Snake.h" afterDir="false" />
     </list>
@@ -46,9 +51,14 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../../Engine/UE_4.26/Engine/Source/Runtime/Engine/Private/Components/ActorComponent.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../Engine/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/Pawn.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Engine/UE_4.26/Engine/Source/Runtime/CoreUObject/Public/Templates/SubclassOf.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Engine/UE_4.26/Engine/Source/Runtime/Engine/Classes/Components/PrimitiveComponent.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../Engine/UE_4.26/Engine/Source/Runtime/Engine/Private/Pawn.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../Engine/UE_4.26/Engine/Source/Runtime/Engine/Private/PrimitiveComponentPhysics.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Engine/UE_4.26/Engine/Source/Runtime/Engine/Classes/GameFramework/Actor.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../Engine/UE_4.26/Engine/Source/Runtime/Engine/Classes/Engine/EngineTypes.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Engine/UE_4.26/Engine/Source/Runtime/Engine/Private/Components/PrimitiveComponent.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Engine/UE_4.26/Engine/Source/Runtime/Core/Public/Logging/LogMacros.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Engine/UE_4.26/Engine/Source/Runtime/Engine/Private/Actor.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -61,9 +71,9 @@
       <option value="$PROJECT_DIR$/Source/SnakeGame/Overlapable.cpp" />
       <option value="$PROJECT_DIR$/Source/SnakeGame/Fruit.cpp" />
       <option value="$PROJECT_DIR$/Source/SnakeGame/Fruit.h" />
+      <option value="$PROJECT_DIR$/Source/SnakeGame/Food.cpp" />
       <option value="$PROJECT_DIR$/Source/SnakeGame/Food.h" />
       <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.h" />
-      <option value="$PROJECT_DIR$/Source/SnakeGame/Food.cpp" />
       <option value="$PROJECT_DIR$/Source/SnakeGame/Snake.cpp" />
     </changedPaths>
   </component>
@@ -452,7 +462,10 @@
       <workItem from="1611396991421" duration="2714000" />
       <workItem from="1611406922933" duration="2063000" />
       <workItem from="1611409422287" duration="94000" />
-      <workItem from="1611489946508" duration="1577000" />
+      <workItem from="1611489946508" duration="1701000" />
+      <workItem from="1611507101951" duration="2454000" />
+      <workItem from="1611570670660" duration="2220000" />
+      <workItem from="1611573009017" duration="2944000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1602416613208</created>
@@ -587,7 +600,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611409490932</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Trying to debug the overlap issue with the food">
+      <created>1611491548536</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1611491548536</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -626,7 +646,8 @@
     <MESSAGE value="Implemented spawning food at start of game in the centre of the board." />
     <MESSAGE value="Removed food files and changed it to fruit class that is a child class of overlappable. Can't get the snake to trigger an overlap event with the spawned fruit." />
     <MESSAGE value="Tried to implement different method of testing for overlap. Still not working" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tried to implement different method of testing for overlap. Still not working" />
+    <MESSAGE value="Trying to debug the overlap issue with the food" />
+    <option name="LAST_COMMIT_MESSAGE" value="Trying to debug the overlap issue with the food" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -7,6 +7,7 @@
 #include "Food.generated.h"
 
 class UStaticMeshComponent;
+class UBoxComponent;
 
 UCLASS()
 class SNAKEGAME_API AFood : public AActor
@@ -23,6 +24,8 @@ public:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Food Mesh")
 		UStaticMeshComponent* FoodMesh{nullptr};
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Food Mesh")
+		UBoxComponent* FoodCollisionBox{ nullptr };
 	
 
 protected:
